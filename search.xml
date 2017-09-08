@@ -18,7 +18,18 @@
     <entry>
       <title><![CDATA[about]]></title>
       <url>/about/index.html</url>
-      <content type="html"></content>
+      <content type="html"><![CDATA[<ul>
+<li><p>北京</p>
+</li>
+<li><p>本科</p>
+</li>
+<li><p>2011年毕业</p>
+</li>
+<li><p>主要从事 java 和 python 相关开发工作</p>
+<p>​</p>
+</li>
+</ul>
+]]></content>
     </entry>
     
   
