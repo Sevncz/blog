@@ -1,148 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search> 
   
-    
-    <entry>
-      <title><![CDATA[在python multiprocessing情况下使用SQLAlchemy]]></title>
-      <url>/2017/09/20/%E5%9C%A8python-multiprocessing%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8SQLAlchemy/</url>
-      <content type="html"><![CDATA[<p>最近有个ETL任务，单独跑的时候很正常，在使用多进程并发执行时，出现了各种 mysql 客户端的问题，如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(_mysql_exceptions.ProgrammingError) (2014, &quot;Commands out of sync; you can&apos;t run this command now&quot;)</div><div class="line"></div><div class="line">NoSuchColumnError: &quot;Could not locate column in row for column &apos;config_powersaving.id&apos;&quot;</div></pre></td></tr></table></figure>
-<p>在初始化的时候，已经使用 scoped_session 包装了数据库的连接，使每个线程独立创建一个数据库连接，应该没有并发问题。</p>
-<p>在google上翻阅各类解决方案都无法解决之后，发现官网本身提供了解决方案，原文如下：</p>
-<blockquote>
-<p>The key goal with multiple python processes is to prevent any database connections from being shared across processes. Depending on specifics of the driver and OS, the issues that arise here range from non-working connections to socket connections that are used by multiple processes concurrently, leading to broken messaging (the latter case is typically the most common).</p>
-<p>The SQLAlchemy <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine" target="_blank" rel="external"><code>Engine</code></a> object refers to a connection pool of existing database connections. So when this object is replicated to a child process, the goal is to ensure that no database connections are carried over. There are three general approaches to this:</p>
-<ol>
-<li><p>Disable pooling using <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/pooling.html#sqlalchemy.pool.NullPool" target="_blank" rel="external"><code>NullPool</code></a>. This is the most simplistic, one shot system that prevents the <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine" target="_blank" rel="external"><code>Engine</code></a> from using any connection more than once.</p>
-</li>
-<li><p>Call <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine.dispose" target="_blank" rel="external"><code>Engine.dispose()</code></a> on any given <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine" target="_blank" rel="external"><code>Engine</code></a> as soon one is within the new process. In Python multiprocessing, constructs such as<code>multiprocessing.Pool</code> include “initializer” hooks which are a place that this can be performed; otherwise at the top of where <code>os.fork()</code> or where the <code>Process</code> object begins the child fork, a single call to <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine.dispose" target="_blank" rel="external"><code>Engine.dispose()</code></a> will ensure any remaining connections are flushed.</p>
-</li>
-<li><p>An event handler can be applied to the connection pool that tests for connections being shared across process boundaries, and invalidates them. This looks like the following:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&gt;    import os</div><div class="line">&gt;    import warnings</div><div class="line">&gt;</div><div class="line">&gt;    from sqlalchemy import event</div><div class="line">&gt;    from sqlalchemy import exc</div><div class="line">&gt;</div><div class="line">&gt;    def add_engine_pidguard(engine):</div><div class="line">&gt;        &quot;&quot;&quot;Add multiprocessing guards.</div><div class="line">&gt;</div><div class="line">&gt;        Forces a connection to be reconnected if it is detected</div><div class="line">&gt;        as having been shared to a sub-process.</div><div class="line">&gt;</div><div class="line">&gt;        &quot;&quot;&quot;</div><div class="line">&gt;</div><div class="line">&gt;        @event.listens_for(engine, &quot;connect&quot;)</div><div class="line">&gt;        def connect(dbapi_connection, connection_record):</div><div class="line">&gt;            connection_record.info[&apos;pid&apos;] = os.getpid()</div><div class="line">&gt;</div><div class="line">&gt;        @event.listens_for(engine, &quot;checkout&quot;)</div><div class="line">&gt;        def checkout(dbapi_connection, connection_record, connection_proxy):</div><div class="line">&gt;            pid = os.getpid()</div><div class="line">&gt;            if connection_record.info[&apos;pid&apos;] != pid:</div><div class="line">&gt;                # substitute log.debug() or similar here as desired</div><div class="line">&gt;                warnings.warn(</div><div class="line">&gt;                    &quot;Parent process %(orig)s forked (%(newproc)s) with an open &quot;</div><div class="line">&gt;                    &quot;database connection, &quot;</div><div class="line">&gt;                    &quot;which is being discarded and recreated.&quot; %</div><div class="line">&gt;                    &#123;&quot;newproc&quot;: pid, &quot;orig&quot;: connection_record.info[&apos;pid&apos;]&#125;)</div><div class="line">&gt;                connection_record.connection = connection_proxy.connection = None</div><div class="line">&gt;                raise exc.DisconnectionError(</div><div class="line">&gt;                    &quot;Connection record belongs to pid %s, &quot;</div><div class="line">&gt;                    &quot;attempting to check out in pid %s&quot; %</div><div class="line">&gt;                    (connection_record.info[&apos;pid&apos;], pid)</div><div class="line">&gt;                )</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-<p>   These events are applied to an <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine" target="_blank" rel="external"><code>Engine</code></a> as soon as its created:</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;    engine = create_engine(&quot;...&quot;)</div><div class="line">&gt;</div><div class="line">&gt;    add_engine_pidguard(engine)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-<p>The above strategies will accommodate the case of an <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Engine" target="_blank" rel="external"><code>Engine</code></a> being shared among processes. However, for the case of a transaction-active <a href="http://docs.sqlalchemy.org/en/rel_1_0/orm/session_api.html#sqlalchemy.orm.session.Session" target="_blank" rel="external"><code>Session</code></a> or <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Connection" target="_blank" rel="external"><code>Connection</code></a> being shared, there’s no automatic fix for this; an application needs to ensure a new child process only initiate new <a href="http://docs.sqlalchemy.org/en/rel_1_0/core/connections.html#sqlalchemy.engine.Connection" target="_blank" rel="external"><code>Connection</code></a> objects and transactions, as well as ORM <a href="http://docs.sqlalchemy.org/en/rel_1_0/orm/session_api.html#sqlalchemy.orm.session.Session" target="_blank" rel="external"><code>Session</code></a> objects. For a <a href="http://docs.sqlalchemy.org/en/rel_1_0/orm/session_api.html#sqlalchemy.orm.session.Session" target="_blank" rel="external"><code>Session</code></a> object, technically this is only needed if the session is currently transaction-bound, however the scope of a single <a href="http://docs.sqlalchemy.org/en/rel_1_0/orm/session_api.html#sqlalchemy.orm.session.Session" target="_blank" rel="external"><code>Session</code></a> is in any case intended to be kept within a single call stack in any case (e.g. not a global object, not shared between processes or threads).</p>
-</blockquote>
-<p>资料来源：</p>
-<p><a href="http://docs.sqlalchemy.org/en/rel_1_0/faq/connections.html#how-do-i-use-engines-connections-sessions-with-python-multiprocessing-or-os-fork" target="_blank" rel="external">http://docs.sqlalchemy.org/en/rel_1_0/faq/connections.html#how-do-i-use-engines-connections-sessions-with-python-multiprocessing-or-os-fork</a></p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> SQLAlchemy, multiprocessing </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[web.py异常统一处理]]></title>
-      <url>/2017/09/15/web-py%E5%BC%82%E5%B8%B8%E7%BB%9F%E4%B8%80%E5%A4%84%E7%90%86/</url>
-      <content type="html"><![CDATA[<p>今天在改造系统的异常统一处理过程中遇到一个坑，在web.py的add_processor中捕获不到异常对象，报 “exceptions must be old-style classes or derived from baseexception, not str” 错误，原因是在 application.py 中， handle_with_processors 方法抛出来的所有异常都被转成 web.py _InternalError。</p>
-<ul>
-<li><p>web.py 的 handle_with_processors</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">handle_with_processors</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process</span><span class="params">(processors)</span>:</span></div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                <span class="keyword">if</span> processors:</div><div class="line">                    p, processors = processors[<span class="number">0</span>], processors[<span class="number">1</span>:]</div><div class="line">                    <span class="keyword">return</span> p(<span class="keyword">lambda</span>: process(processors))</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    <span class="keyword">return</span> self.handle()</div><div class="line">            <span class="keyword">except</span> web.HTTPError:</div><div class="line">                <span class="keyword">raise</span></div><div class="line">            <span class="keyword">except</span> (KeyboardInterrupt, SystemExit):</div><div class="line">                <span class="keyword">raise</span></div><div class="line">            <span class="keyword">except</span>:</div><div class="line">                <span class="keyword">print</span> &gt;&gt; web.debug, traceback.format_exc()</div><div class="line">                <span class="keyword">raise</span> self.internalerror()</div></pre></td></tr></table></figure>
-</li>
-<li><p>self.internalerror</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">internalerror</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="string">"""Returns HTTPError with '500 internal error' message"""</span></div><div class="line">    parent = self.get_parent_app()</div><div class="line">    <span class="keyword">if</span> parent:</div><div class="line">        <span class="keyword">return</span> parent.internalerror()</div><div class="line">    <span class="keyword">elif</span> web.config.get(<span class="string">'debug'</span>):</div><div class="line">        <span class="keyword">import</span> debugerror</div><div class="line">        <span class="keyword">return</span> debugerror.debugerror()</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> web._InternalError()</div></pre></td></tr></table></figure>
-<p>返回的是 web._InternalError，再看看这个 _InternalError 是什么？</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">_InternalError</span><span class="params">(HTTPError)</span>:</span></div><div class="line">    <span class="string">"""500 Internal Server Error`."""</span></div><div class="line">    message = <span class="string">"internal server error"</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, message=None)</span>:</span></div><div class="line">        status = <span class="string">'500 Internal Server Error'</span></div><div class="line">        headers = &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html'</span>&#125;</div><div class="line">        HTTPError.__init__(self, status, headers, message <span class="keyword">or</span> self.message)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>所以需要自己重新写一个 class 继承 web.application，重写一下 handle_with_processors 方法。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CKRApplication</span><span class="params">(web.application)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_with_processors</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">process</span><span class="params">(processors)</span>:</span></div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                <span class="keyword">if</span> processors:</div><div class="line">                    p, processors = processors[<span class="number">0</span>], processors[<span class="number">1</span>:]</div><div class="line">                    <span class="keyword">return</span> p(<span class="keyword">lambda</span>: process(processors))</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    <span class="keyword">return</span> self.handle()</div><div class="line">            <span class="keyword">except</span> (web.HTTPError, KeyboardInterrupt, SystemExit):</div><div class="line">                <span class="keyword">raise</span></div><div class="line">            <span class="keyword">except</span> ParamError <span class="keyword">as</span> ex:</div><div class="line">                web.ctx.status = <span class="string">"200 OK"</span></div><div class="line">                logger.exception(ex.__str__())</div><div class="line">                <span class="keyword">return</span> response.error(response.status_code.PARAM_ERROR, ex.__str__())</div><div class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> ex:</div><div class="line">                logger.exception(ex.__str__())</div><div class="line">                web.ctx.status = <span class="string">'200 OK'</span></div><div class="line">                <span class="keyword">return</span> response.error(response.status_code.UNKNOWN_ERROR, <span class="string">u'未知异常'</span>)</div><div class="line">        <span class="keyword">return</span> process(self.processors)</div></pre></td></tr></table></figure>
-<p>另外还有一个问题，在重新抛出另一个异常的时候，捕获的上一个异常的 traceback 信息丢失了。这样的话非常不利于查找问题。可以通过 <code>sys.exc_info()</code> 获取当前捕获的异常信息。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">raise</span> ParamNotFoundError(<span class="string">"test"</span>), <span class="keyword">None</span>, sys.exc_info()[<span class="number">2</span>]</div></pre></td></tr></table></figure>
-<p>这是 raise 的高级用法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">raise</span> exception, value, traceback</div></pre></td></tr></table></figure>
-<ul>
-<li><code>exception</code>: 异常类实例/异常类</li>
-<li><code>value</code>: 初始化异常类的参数值/异常类实例（使用这个实例作为 raise 的异常实例）/元组/None</li>
-<li><code>traceback</code>: traceback 对象/None</li>
-</ul>
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ul>
-<li><a href="https://groups.google.com/forum/#!topic/webpy/k2-pLAJf5r4" target="_blank" rel="external">https://groups.google.com/forum/#!topic/webpy/k2-pLAJf5r4</a></li>
-<li><a href="https://mozillazg.github.io/2016/08/python-the-right-way-to-catch-exception-then-reraise-another-exception.html" target="_blank" rel="external">https://mozillazg.github.io/2016/08/python-the-right-way-to-catch-exception-then-reraise-another-exception.html</a></li>
-</ul>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> python </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[mysql分区备份及转移操作]]></title>
-      <url>/2017/09/13/mysql%E5%88%86%E5%8C%BA%E5%A4%87%E4%BB%BD%E5%8F%8A%E8%BD%AC%E7%A7%BB%E6%93%8D%E4%BD%9C/</url>
-      <content type="html"><![CDATA[<p>昨天写的脚本不小心把电量和功率数据弄反了，原始csv文件也被我给删了，悲剧，于是只能通过分区数据备份来转移数据了，意料之外的速度很快，把操作过程记录下。</p>
-<ul>
-<li><p>快速创建被与原表结构一致的备份表并删除所有分区</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dianliangbak <span class="keyword">LIKE</span> ckr_dau_dianliang;</div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> dianliangbak REMOVE PARTITIONING;</div></pre></td></tr></table></figure>
-</li>
-<li><p>将分区表数据转移至被分表<figure class="highlight plain"><figcaption><span>TABLE ckr_dau_dianliang EXCHANGE PARTITION p20170913 WITH TABLE dianliangbak;```  这一步操作之后，该分区数据被清空。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- 检查分区数据 ```select count(1) from ckr_dau_dianliang partition(p20170913);</div></pre></td></tr></table></figure></p>
-</li>
-<li><p>针对功率表重复以上操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> gonglvbak <span class="keyword">LIKE</span> ckr_dau_gonglv;</div><div class="line"></div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> gonglvbak REMOVE PARTITIONING;</div><div class="line"></div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ckr_dau_gonglv <span class="keyword">EXCHANGE</span> <span class="keyword">PARTITION</span> p20170913 <span class="keyword">WITH</span> <span class="keyword">TABLE</span> gonglvbak;</div><div class="line"></div><div class="line"><span class="keyword">select</span> <span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">from</span> ckr_dau_gonglv <span class="keyword">partition</span>(p20170913);</div></pre></td></tr></table></figure>
-</li>
-<li><p>恢复数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> ckr_dau_dianliang (devId, <span class="keyword">time</span>, <span class="keyword">value</span>) <span class="keyword">select</span> devId, <span class="keyword">time</span>, <span class="keyword">value</span> <span class="keyword">from</span> gonglvbak;</div><div class="line"></div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> ckr_dau_gonglv (devId, <span class="keyword">time</span>, <span class="keyword">value</span>) <span class="keyword">select</span> devId, <span class="keyword">time</span>, <span class="keyword">value</span> <span class="keyword">from</span> dianliangbak;</div><div class="line"></div><div class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> dianliangbak;</div><div class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> gonglvbak;</div></pre></td></tr></table></figure>
-<p>​</p>
-<p>可以用来作为未来分区数据清理并备份的方法之一。</p>
-</li>
-</ul>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> mysql </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>/2017/09/08/hello-world/</url>
-      <content type="html"><![CDATA[<p>终于把这个在线笔记本搭起来了。</p>
-<p>以前用过 Mac 自带的 Notes、印象笔记、OneNote，都挺不好用的，要不就是同步不方便，要不就是排版不方便，现在习惯用markdown来写技术文档，索性把笔记也改成 markdown 好了，而且还自带 github 备份，所以有空了把以前的笔记整理整理放上来，希望自己的懒癌不要发作～</p>
-]]></content>
-      
-        
-    </entry>
-    
+  
   
   
     
+    
     <entry>
-      <title><![CDATA[关于]]></title>
-      <url>/about/index.html</url>
-      <content type="html"><![CDATA[<ul>
-<li><p>北京</p>
-</li>
-<li><p>本科</p>
-</li>
-<li><p>2011年毕业</p>
-</li>
-<li><p>主要从事 java 和 python 相关开发工作</p>
-<p>​</p>
-</li>
-</ul>
-]]></content>
+      <title>关于</title>
+      <link href="about/index.html"/>
+      <url>about/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>北京</p></li><li><p>本科</p></li><li><p>2011年毕业</p></li><li><p>主要从事 java 和 python 相关开发工作</p><p>​</p></li></ul>]]></content>
+      
     </entry>
+    
     
   
 </search>
