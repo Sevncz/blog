@@ -1,13 +1,11 @@
 ---
-title: Spark SQL原理
-date: 2020-12-11 12:22:00
+title: Spark SQL运行的基本原理
+date: 2020-12-07 12:22:00
 tags:
   - 大数据
   - Spark SQL
 categories: bigdata
 ---
-
-# Spark SQL原理
 
 ## 简介
 

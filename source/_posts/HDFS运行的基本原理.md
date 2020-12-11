@@ -1,13 +1,11 @@
 ---
-title: HDFS原理浅析
-date: 2020-12-11 12:22:00
+title: HDFS运行的基本原理
+date: 2020-12-01 12:22:00
 tags:
   - 大数据
   - HDFS
 categories: bigdata
 ---
-
-# HDFS原理浅析
 
 ## 概述
 

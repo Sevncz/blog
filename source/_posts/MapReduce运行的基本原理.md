@@ -1,15 +1,11 @@
 ---
-title: MapReduce原理
-date: 2020-12-11 12:22:00
+title: MapReduce运行的基本原理
+date: 2020-12-03 12:22:00
 tags:
   - 大数据
   - MapReduce
 categories: bigdata
 ---
-
-
-
-# MapReduce原理
 
 MapReduce 即是编程模型也是计算框架。开发人员必须基于MapReduce 编程模型进行开发，然后将程序通过MapReduce计算框架分发到Hadoop集群中运行。
 
