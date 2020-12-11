@@ -82,9 +82,9 @@ creative_commons:
 menu:
   home: / || fa fa-home
   about: /about/ || fa fa-user
-  tags: /tags/ || fa fa-tags
+  # tags: /tags/ || fa fa-tags
   bigdata: /categories/bigdata/ || fa fa-project-diagram
-  categories: /categories/ || fa fa-th
+  # categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
   # sitemap: /sitemap.xml || fa fa-sitemap
   # schedule: /schedule/ || fa fa-calendar
