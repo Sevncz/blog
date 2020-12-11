@@ -1,341 +1,294 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
-
-
-
-
-
-
-<meta name="description" content="大数据相关开发从业者的博客">
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Gemini","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="努力赚钱">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sevncz&#39;s Blog">
 <meta property="og:url" content="http://sevncz.xyz/index.html">
 <meta property="og:site_name" content="Sevncz&#39;s Blog">
-<meta property="og:description" content="大数据相关开发从业者的博客">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:description" content="努力赚钱">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="sevncz">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sevncz&#39;s Blog">
-<meta name="twitter:description" content="大数据相关开发从业者的博客">
 
 
+<link rel="canonical" href="http://sevncz.xyz/">
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://sevncz.xyz/"/>
-
-
-
-
-
-  <title>Sevncz's Blog</title>
+<title>Sevncz's Blog</title>
   
 
 
 
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
 
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
 
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
 
-
-
-
-
-
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-   page-home 
- ">
-    <div class="headband"></div>
-    
-    <a href="https://github.com/Sevncz"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Sevncz's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sevncz's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-bigdata">
+
+    <a href="/categories/bigdata/" rel="section"><i class="fa fa-project-diagram fa-fw"></i>大数据</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sevncz</p>
+  <div class="site-description" itemprop="description">努力赚钱</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
     
-      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
   
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/HDFS原理浅析/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/HDFS%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460">
+      <meta itemprop="description" content="努力赚钱">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Sevncz's Blog">
     </span>
-
-    
       <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/11/HDFS%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" class="post-title-link" itemprop="url">HDFS原理浅析</a>
+        </h2>
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/11/HDFS原理浅析/" itemprop="url">HDFS原理浅析</a></h1>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">
-                2020-12-11
-              </time>
-            
+      <time title="创建时间：2020-12-11 12:22:00 / 修改时间：14:54:43" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">2020-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="HDFS原理浅析"><a href="#HDFS原理浅析" class="headerlink" title="HDFS原理浅析"></a>HDFS原理浅析</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+          <h1 id="HDFS原理浅析"><a href="#HDFS原理浅析" class="headerlink" title="HDFS原理浅析"></a>HDFS原理浅析</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
 <li>HDFS集群分为两大角色：NameNode、DataNode</li>
 <li>NameNode负责管理整个文件系统和每一个文件的元数据（元数据是block的ID，存储在哪一个DataNode）</li>
 <li>DataNode负责管理用户的文件数据块</li>
@@ -381,11 +334,13 @@
 <p>注：当客户端对hdfs中的文件进行新增或者修改操作，操作记录首先被记入edits日志文件中，当客户端操作成功后，相应的元数据会更新到内存meta.data中</p>
 </blockquote>
 <h3 id="元数据手动查看"><a href="#元数据手动查看" class="headerlink" title="元数据手动查看"></a>元数据手动查看</h3><p>可以通过hdfs的一个工具来查看edits中的信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bin/hdfs oev -i edits -o edits.xml` </div><div class="line">bin/hdfs oiv -i fsimage_0000000000000000087 -p XML -o fsimage.xml</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin&#x2F;hdfs oev -i edits -o edits.xml&#96; </span><br><span class="line">bin&#x2F;hdfs oiv -i fsimage_0000000000000000087 -p XML -o fsimage.xml</span><br></pre></td></tr></table></figure>
+
 <h3 id="元数据的checkpoin"><a href="#元数据的checkpoin" class="headerlink" title="元数据的checkpoin"></a>元数据的checkpoin</h3><p>每隔一段时间，会由secondary namenode将namenode上积累的所有edits和一个最新的fsimage下载到本地，并加载到内存进行merge（这个过程称为checkpoint）</p>
 <p><strong>checkpoint的详细过程：</strong></p>
 <p><strong>checkpoint触发条件配置参数：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dfs.namenode.checkpoint.checkpoint.period=60 #检查触发条件是否满足的频率，60秒</div><div class="line">dfs.namenode.checkpoint.checkpoint.dir=file://$&#123;hadoop.tmp.dir&#125;/dfs/namesecondary</div><div class="line">dfs.namenode.checkpoint.edits.dir=$&#123;dfs.namenode.checkpoint.dir&#125; #以上两个参数做checkpoint操作时，secondary namenode的本地工作目录</div><div class="line">dfs.namenode.checkpoint.max-retries=3 #最大重试次数</div><div class="line">dfs.namenode.checkpoint.period=3600 #两次checkpoint之间的时间间隔3600秒</div><div class="line">dfs.namenode.checkpoint.txns=1000000 #两次checkpoint之间最大的操作记录</div></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">dfs.namenode.checkpoint.checkpoint.period</span>=<span class="string">60 #检查触发条件是否满足的频率，60秒</span></span><br><span class="line"><span class="meta">dfs.namenode.checkpoint.checkpoint.dir</span>=<span class="string">file://$&#123;hadoop.tmp.dir&#125;/dfs/namesecondary</span></span><br><span class="line"><span class="meta">dfs.namenode.checkpoint.edits.dir</span>=<span class="string">$&#123;dfs.namenode.checkpoint.dir&#125; #以上两个参数做checkpoint操作时，secondary namenode的本地工作目录</span></span><br><span class="line"><span class="meta">dfs.namenode.checkpoint.max-retries</span>=<span class="string">3 #最大重试次数</span></span><br><span class="line"><span class="meta">dfs.namenode.checkpoint.period</span>=<span class="string">3600 #两次checkpoint之间的时间间隔3600秒</span></span><br><span class="line"><span class="meta">dfs.namenode.checkpoint.txns</span>=<span class="string">1000000 #两次checkpoint之间最大的操作记录</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>checkpoint的附带作用</strong></p>
 <p>namenode和secondary namenode的工作目录存储结构完全相同，所以，当namenode故障退出需要重新恢复时，可以从secondary namenode的工作目录中将fsimage拷贝到namenode的工作目录，以恢复namenode的元数据</p>
 <h2 id="DataNode的工作机制"><a href="#DataNode的工作机制" class="headerlink" title="DataNode的工作机制"></a>DataNode的工作机制</h2><h3 id="DataNode工作职责："><a href="#DataNode工作职责：" class="headerlink" title="DataNode工作职责："></a>DataNode工作职责：</h3><ul>
@@ -405,661 +360,152 @@
 <li>通过上面的几步，fsimage和edits文件就完成了合并，由于HA机制，会使得Standby NameNode和Active NameNode都拥有最新的fsimage和edits文件（之前Hadoop 1.x的SecondaryNameNode中的fsimage和edits不是最新的）</li>
 </ol>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
       
     </footer>
-  </div>
-  
-  
-  
   </article>
+</div>
+
+
 
 
     
-      
 
-  
 
-  
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/Hive/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460">
+      <meta itemprop="description" content="努力赚钱">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Sevncz's Blog">
     </span>
-
-    
       <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/11/Hive/" class="post-title-link" itemprop="url">Hive原理浅析</a>
+        </h2>
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/11/Hive/" itemprop="url">Hive原理浅析</a></h1>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">
-                2020-12-11
-              </time>
-            
+      <time title="创建时间：2020-12-11 12:22:00 / 修改时间：14:54:59" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">2020-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
           
-            
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
       
     </footer>
-  </div>
-  
-  
-  
   </article>
+</div>
+
+
 
 
     
-      
 
-  
 
-  
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/Spark SQL原理/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/MapReduce%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460">
+      <meta itemprop="description" content="努力赚钱">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Sevncz's Blog">
     </span>
-
-    
       <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/11/MapReduce%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">MapReduce原理</a>
+        </h2>
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/11/Spark SQL原理/" itemprop="url">Spark SQL原理</a></h1>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">
-                2020-12-11
-              </time>
-            
+      <time title="创建时间：2020-12-11 12:22:00 / 修改时间：14:55:10" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">2020-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Spark-SQL原理"><a href="#Spark-SQL原理" class="headerlink" title="Spark SQL原理"></a>Spark SQL原理</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Spark SQL 是 Spark 中的一个子模块，主要用于操作结构化数据。它具有以下特点：</p>
-<ul>
-<li>能够将 SQL 查询与 Spark 程序无缝混合，允许您使用 SQL 或 DataFrame API 对结构化数据进行查询；</li>
-<li>支持多种开发语言；</li>
-<li>支持多达上百种的外部数据源，包括 Hive，Avro，Parquet，ORC，JSON 和 JDBC 等；</li>
-<li>支持 HiveQL 语法以及 Hive SerDes 和 UDF，允许你访问现有的 Hive 仓库；</li>
-<li>支持标准的 JDBC 和 ODBC 连接；</li>
-<li>支持优化器，列式存储和代码生成等特性；</li>
-<li>支持扩展并能保证容错。</li>
-</ul>
-<h2 id="DataFrame和RDD"><a href="#DataFrame和RDD" class="headerlink" title="DataFrame和RDD"></a>DataFrame和RDD</h2><p>主要区别在于RDD面向的是非结构化数据，DataFreame面向的是结构化数据。</p>
-<p>DataFrame 内部的有明确 Scheme 结构，即列名、列字段类型都是已知的，这带来的好处是可以减少数据读取以及更好地优化执行计划，从而保证查询效率。</p>
-<h2 id="DataFrame-和-RDDs-应该如何选择？"><a href="#DataFrame-和-RDDs-应该如何选择？" class="headerlink" title="DataFrame 和 RDDs 应该如何选择？"></a>DataFrame 和 RDDs 应该如何选择？</h2><ul>
-<li>如果你想使用函数式编程而不是 DataFrame API，则使用 RDDs；</li>
-<li>如果你的数据是非结构化的 (比如流媒体或者字符流)，则使用 RDDs，</li>
-<li>如果你的数据是结构化的 (如 RDBMS 中的数据) 或者半结构化的 (如日志)，出于性能上的考虑，应优先使用 DataFrame。</li>
-</ul>
-<h2 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h2><p>DataSet 也是分布式的数据集合，在Spark1.6版本引入，它继承了RDD和DataFrame的优点，具备强类型的特点，同时支持Lambda函数，但只能在 Scala 和 Java 语言中使用。在 Spark 2.0 后，为了方便开发者，Spark 将 DataFrame 和 Dataset 的 API 融合到一起，提供了结构化的 API(Structured API)，即用户可以通过一套标准的 API 就能完成对两者的操作。</p>
-<p>静态类型与运行时类型安全</p>
-<p>静态类型 (Static-typing) 与运行时类型安全 (runtime type-safety) 主要表现如下:</p>
-<p>在实际使用中，如果你用的是 Spark SQL 的查询语句，则直到运行时你才会发现有语法错误，而如果你用的是 DataFrame 和 Dataset，则在编译时就可以发现错误 (这节省了开发时间和整体代价)。DataFrame 和 Dataset 主要区别在于：</p>
-<p>在 DataFrame 中，当你调用了 API 之外的函数，编译器就会报错，但如果你使用了一个不存在的字段名字，编译器依然无法发现。而 Dataset 的 API 都是用 Lambda 函数和 JVM 类型对象表示的，所有不匹配的类型参数在编译时就会被发现。</p>
-<p>以上这些最终都被解释成关于类型安全图谱，对应开发中的语法和分析错误。在图谱中，Dataset 最严格，但对于开发者来说效率最高。</p>
-<h2 id="Untypeed-和-Typed"><a href="#Untypeed-和-Typed" class="headerlink" title="Untypeed 和 Typed"></a>Untypeed 和 Typed</h2><p>DataFrame API 被标记为 Untyped API，而 DataSet API 被标记为 Typed API。DataFrame 的 Untyped 是相对于语言或 API 层面而言，它确实有明确的 Scheme 结构，即列名，列类型都是确定的，但这些信息完全由 Spark 来维护，Spark 只会在运行时检查这些类型和指定类型是否一致。这也就是为什么在 Spark 2.0 之后，官方推荐把 DataFrame 看做是 DatSet[Row]，Row 是 Spark 中定义的一个 trait，其子类中封装了列字段的信息。</p>
-<p>相对而言，DataSet 是 Typed 的，即强类型。如下面代码，DataSet 的类型由 Case Class(Scala) 或者 Java Bean(Java) 来明确指定的，在这里即每一行数据代表一个 Person，这些信息由 JVM 来保证正确性，所以字段名错误和类型错误在编译的时候就会被 IDE 所发现。</p>
-<p>val dataSet: Dataset[Person] = spark.read.json(“people.json”).as[Person]</p>
-<h2 id="DataFrame-amp-DataSet-amp-RDDs-总结"><a href="#DataFrame-amp-DataSet-amp-RDDs-总结" class="headerlink" title="DataFrame &amp; DataSet &amp; RDDs 总结"></a>DataFrame &amp; DataSet &amp; RDDs 总结</h2><ul>
-<li>RDDs 适合非结构化数据的处理，而 DataFrame &amp; DataSet 更适合结构化数据和半结构化的处理；</li>
-<li>DataFrame &amp; DataSet 可以通过统一的 Structured API 进行访问，而 RDDs 则更适合函数式编程的场景；</li>
-<li>相比于 DataFrame 而言，DataSet 是强类型的 (Typed)，有着更为严格的静态类型检查；</li>
-<li>DataSets、DataFrames、SQL 的底层都依赖了 RDDs API，并对外提供结构化的访问接口。</li>
-</ul>
-<h2 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h2><p>DataFrame、DataSet 和 Spark SQL 的实际执行流程都是相同的：</p>
-<ol>
-<li>进行 DataFrame/Dataset/SQL 编程；</li>
-<li>如果是有效的代码，即代码没有编译错误，Spark 会将其转换为一个逻辑计划；</li>
-<li>Spark 将此逻辑计划转换为物理计划，同时进行代码优化；</li>
-<li>Spark 然后在集群上执行这个物理计划 (基于 RDD 操作) 。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/Spark SQL源码分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevncz's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/11/Spark SQL源码分析/" itemprop="url">Spark源码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">
-                2020-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Spark-SQL源码分析"><a href="#Spark-SQL源码分析" class="headerlink" title="Spark SQL源码分析"></a>Spark SQL源码分析</h1><p><strong>调用SQL时</strong></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="type">SparkSession</span> -&gt;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sql</span></span>(sqlText: <span class="type">String</span>): <span class="type">DataFrame</span> = &#123;</div><div class="line"></div><div class="line"> <span class="type">Dataset</span>.ofRows(self, sessionState.sqlParser.parsePlan(sqlText))</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a>Parser</h2><p>parsePlan方法会返回一个LogicalPlan对象；</p>
-<p>第一步，利用 antlr4 生成的 SqlBaseLexer【val lexer = new SqlBaseLexer(new UpperCaseCharStream(CharStreams.fromString(command)))】 对SQL进行词法分析，生成一个CommonTokenStream 对象【val tokenStream = new CommonTokenStream(lexer)】</p>
-<p>第二步，利用 antlr4 生成的 SqlBaseParser 【val parser = new SqlBaseParser(tokenStream)】对SQL进行语法分析，得到 Unresolved LogicalPlan</p>
-<p>以下均在 QueryExecution 中执行</p>
-<h2 id="Analyzer"><a href="#Analyzer" class="headerlink" title="Analyzer"></a>Analyzer</h2><p>Analyzer 持有一个 SessionCatalog 对象的引用</p>
-<p>Analyzer 继承自 RuleExecutor[LogicalPlan]，因此可以对 LogicalPlan 进行转换</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> analyzed: <span class="type">LogicalPlan</span> = &#123;</div><div class="line"></div><div class="line"> <span class="type">SparkSession</span>.setActiveSession(sparkSession)</div><div class="line"></div><div class="line"> sparkSession.sessionState.analyzer.executeAndCheck(logical)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>通过 Catalog 确定每张表对应的字段集、字段类型、数据存储位置，生成Resolved Logical Plan</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkAnalysis</span></span>(plan: <span class="type">LogicalPlan</span>): <span class="type">Unit</span> = &#123;</div><div class="line"></div><div class="line">	<span class="keyword">case</span> u: <span class="type">UnresolvedRelation</span> =&gt;</div><div class="line"></div><div class="line">	 u.failAnalysis(<span class="string">s"Table or view not found: <span class="subst">$&#123;u.tableIdentifier&#125;</span>"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>ResolveRelations</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 关联表</span></div><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">lookupTableFromCatalog</span></span>(</div><div class="line"></div><div class="line">  u: <span class="type">UnresolvedRelation</span>,</div><div class="line"></div><div class="line">  defaultDatabase: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">None</span>): <span class="type">LogicalPlan</span> =&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> optimizedPlan: <span class="type">LogicalPlan</span> = sparkSession.sessionState.optimizer.execute(withCachedData)</div></pre></td></tr></table></figure>
-<p>逻辑优化器，会进行谓词下推，列值裁剪，常量折叠，谓词合并等等一系列逻辑优化</p>
-<p>根据预先定义好的规则对 Resolved Logical Plan 进行优化并生成 Optimized Logical Plan</p>
-<h2 id="SparkPlanner"><a href="#SparkPlanner" class="headerlink" title="SparkPlanner"></a>SparkPlanner</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> sparkPlan: <span class="type">SparkPlan</span> = &#123;</div><div class="line"></div><div class="line"> <span class="type">SparkSession</span>.setActiveSession(sparkSession)</div><div class="line"></div><div class="line"> <span class="comment">// <span class="doctag">TODO:</span> We use next(), i.e. take the first plan returned by the planner, here for now,</span></div><div class="line"></div><div class="line"> <span class="comment">//    but we will implement to choose the best plan.</span></div><div class="line"></div><div class="line"> planner.plan(<span class="type">ReturnAnswer</span>(optimizedPlan)).next()</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>把 Logical Plan 转变为 Physical Plan</p>
-<h2 id="执行-Physical-Plan"><a href="#执行-Physical-Plan" class="headerlink" title="执行 Physical Plan"></a>执行 Physical Plan</h2><p>lazy val executedPlan: SparkPlan = prepareForExecution(sparkPlan)</p>
-<p><strong>转成RDD</strong></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** Internal version of the RDD. Avoids copies and has no schema */</span></div><div class="line"></div><div class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> toRdd: <span class="type">RDD</span>[<span class="type">InternalRow</span>] = &#123;</div><div class="line"></div><div class="line"> <span class="keyword">if</span> (sparkSession.sessionState.conf.getConf(<span class="type">SQLConf</span>.<span class="type">USE_CONF_ON_RDD_OPERATION</span>)) &#123;</div><div class="line"></div><div class="line">  <span class="keyword">new</span> <span class="type">SQLExecutionRDD</span>(executedPlan.execute(), sparkSession.sessionState.conf)</div><div class="line"></div><div class="line"> &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">  executedPlan.execute()</div><div class="line"></div><div class="line"> &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/MapReduce源码分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevncz's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/11/MapReduce源码分析/" itemprop="url">MapReduce源码分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">
-                2020-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/MapReduce原理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevncz's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/11/MapReduce原理/" itemprop="url">MapReduce原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">
-                2020-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="MapReduce原理"><a href="#MapReduce原理" class="headerlink" title="MapReduce原理"></a>MapReduce原理</h1><p>MapReduce 即是编程模型也是计算框架。开发人员必须基于MapReduce 编程模型进行开发，然后将程序通过MapReduce计算框架分发到Hadoop集群中运行。</p>
+          <h1 id="MapReduce原理"><a href="#MapReduce原理" class="headerlink" title="MapReduce原理"></a>MapReduce原理</h1><p>MapReduce 即是编程模型也是计算框架。开发人员必须基于MapReduce 编程模型进行开发，然后将程序通过MapReduce计算框架分发到Hadoop集群中运行。</p>
 <p>大数据计算的核心思想是移动计算，它比移动数据更划算，传统的编程模型进行大数据计算就会遇到很多困难，因此Hadoop大数据计算使用这种MapReduce的编程模型。</p>
 <h2 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h2><p>作为一种编程模型，该模型主要分为两个过程，即 <code>Map</code> 和 <code>Reduce</code>。 <code>MapReduce</code> 的整体思想是： <strong>将输入的数据分成 M 个 <code>tasks</code>， 由用户自定义的 <code>Map</code> 函数去执行任务，产出 <code>&lt;Key, Value&gt;</code>形式的中间数据，然后相同的 key 通过用户自定义的 <code>Reduce</code> 函数去聚合，得到最终的结果。</strong></p>
 <p>MapReduce执行过程主要包括:</p>
@@ -1147,7 +593,7 @@
 <h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>这里的 sort 是按字典顺序排列，而不是按数值大小进行排序</p>
 <h4 id="combine"><a href="#combine" class="headerlink" title="combine"></a>combine</h4><p>将排好序的数据，按照键相同的合并在一起的规则，进行值的合并。</p>
 <p>map 的输出结果在经过 partition 阶段的处理后，明确了要发给哪个 reduce 去做处理，当写入内存后，需要将所有的键值对按照 key 进行 sort，在 sort 的基础上，再对结果进行 combine，最后，再写到磁盘文件上。所以，在磁盘上的数据，是已经分好区的，并且已经排好序的。</p>
-<p><strong>溢写磁盘需要注意的地方：</strong>==如果map的输出结果很大，有多次溢写发生的话，磁盘上就会存在多个溢写文件（每次溢写都会产生一个溢写文件），在map task真正的完成是时，会将所有的溢写文件都Merge到一个溢写文件中，这个过程就叫Merge。比如，从一个map读取过来的是<aaa, 5="">，另外一个map读取的 是<aaa，8>。相同的key，就会merge成一个group{aaa，[5, 8…]}，这个数组中的不同的值，就是从不同的溢写文件中读取过来的，然后把这些值加起来。==</aaa，8></aaa,></p>
+<p><strong>溢写磁盘需要注意的地方：</strong>==如果map的输出结果很大，有多次溢写发生的话，磁盘上就会存在多个溢写文件（每次溢写都会产生一个溢写文件），在map task真正的完成是时，会将所有的溢写文件都Merge到一个溢写文件中，这个过程就叫Merge。比如，从一个map读取过来的是&lt;aaa, 5&gt;，另外一个map读取的 是&lt;aaa，8&gt;。相同的key，就会merge成一个group{aaa，[5, 8…]}，这个数组中的不同的值，就是从不同的溢写文件中读取过来的，然后把这些值加起来。==</p>
 <p><strong>为什么要设置内存缓冲区：</strong>批量收集 map 的结果，减少磁盘 IO 的次数，提高频率。</p>
 <p><strong>磁盘文件要写到哪里：</strong>写磁盘将按照轮询方式写到mapred.local.dir属性指定的作业特定子目录的目录中。也就是存放在TaskTracker够得着的某个本地目录，每一个reduce task不断通过RPC从JobTracker中获取map task是否完成的信息，如果reduce task得到通知，获知某台TaskTracker上的map task完成，Shuffle的后半段就开始了。 </p>
 <p><strong>所有的合并究竟是为什么：</strong> 因为map节点和reduce节点之间的数据拷贝是通过网络进行拷贝的，数据量越小，拷贝的越快，相应的处理也就越快。所以合并的目的就是减少map的输出数据量，让网络拷贝尽可能快。</p>
@@ -1160,169 +606,348 @@
 </li>
 <li><p>当整个map结束后再对磁盘中这个map所产生的所有临时文件做合并（merge）</p>
 </li>
-<li>reduce从tasktracker copy数据</li>
-<li>copy 过来的数据会先放在内存缓冲区，这里的缓冲区大小要比map端的更为灵活，它基于jvm的heap size 设置</li>
-<li>merge的三种形式：1、内存到内存；2、内存到磁盘；3、磁盘到磁盘；merge从不同tasktracker上拿到的数据。</li>
+<li><p>reduce从tasktracker copy数据</p>
+</li>
+<li><p>copy 过来的数据会先放在内存缓冲区，这里的缓冲区大小要比map端的更为灵活，它基于jvm的heap size 设置</p>
+</li>
+<li><p>merge的三种形式：1、内存到内存；2、内存到磁盘；3、磁盘到磁盘；merge从不同tasktracker上拿到的数据。</p>
+</li>
 </ul>
 
-          
-        
       
     </div>
-    
-    
-    
 
     
-
     
-
     
 
     <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
         <div class="post-eof"></div>
       
     </footer>
-  </div>
-  
-  
-  
   </article>
+</div>
+
+
 
 
     
-  </section>
 
+
+<div class="post-block">
+  
   
 
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/MapReduce%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
 
-          </div>
-          
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
 
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/11/MapReduce%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">MapReduce源码分析</a>
+        </h2>
 
-          
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-11 12:22:00 / 修改时间：14:58:33" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">2020-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
 
         </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
+      </header>
 
-  <aside id="sidebar" class="sidebar">
     
-    <div class="sidebar-inner">
-
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
       
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://avatars3.githubusercontent.com/u/2398373?v=4&s=460"
-               alt="sevncz" />
-          <p class="site-author-name" itemprop="name">sevncz</p>
-           
-              <p class="site-description motion-element" itemprop="description">大数据相关开发从业者的博客</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives/">
-                <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/Sevncz" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                    
-                      GitHub
-                    
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/sevncz" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                    
-                      Twitter
-                    
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-
-      
-
     </div>
-  </aside>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
 
-        
-      </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
+
+    
+
+
+<div class="post-block">
   
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/Spark%20SQL%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/11/Spark%20SQL%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Spark SQL原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-11 12:22:00 / 修改时间：14:55:23" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">2020-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Spark-SQL原理"><a href="#Spark-SQL原理" class="headerlink" title="Spark SQL原理"></a>Spark SQL原理</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Spark SQL 是 Spark 中的一个子模块，主要用于操作结构化数据。它具有以下特点：</p>
+<ul>
+<li>能够将 SQL 查询与 Spark 程序无缝混合，允许您使用 SQL 或 DataFrame API 对结构化数据进行查询；</li>
+<li>支持多种开发语言；</li>
+<li>支持多达上百种的外部数据源，包括 Hive，Avro，Parquet，ORC，JSON 和 JDBC 等；</li>
+<li>支持 HiveQL 语法以及 Hive SerDes 和 UDF，允许你访问现有的 Hive 仓库；</li>
+<li>支持标准的 JDBC 和 ODBC 连接；</li>
+<li>支持优化器，列式存储和代码生成等特性；</li>
+<li>支持扩展并能保证容错。</li>
+</ul>
+<h2 id="DataFrame和RDD"><a href="#DataFrame和RDD" class="headerlink" title="DataFrame和RDD"></a>DataFrame和RDD</h2><p>主要区别在于RDD面向的是非结构化数据，DataFreame面向的是结构化数据。</p>
+<p>DataFrame 内部的有明确 Scheme 结构，即列名、列字段类型都是已知的，这带来的好处是可以减少数据读取以及更好地优化执行计划，从而保证查询效率。</p>
+<h2 id="DataFrame-和-RDDs-应该如何选择？"><a href="#DataFrame-和-RDDs-应该如何选择？" class="headerlink" title="DataFrame 和 RDDs 应该如何选择？"></a>DataFrame 和 RDDs 应该如何选择？</h2><ul>
+<li>如果你想使用函数式编程而不是 DataFrame API，则使用 RDDs；</li>
+<li>如果你的数据是非结构化的 (比如流媒体或者字符流)，则使用 RDDs，</li>
+<li>如果你的数据是结构化的 (如 RDBMS 中的数据) 或者半结构化的 (如日志)，出于性能上的考虑，应优先使用 DataFrame。</li>
+</ul>
+<h2 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h2><p>DataSet 也是分布式的数据集合，在Spark1.6版本引入，它继承了RDD和DataFrame的优点，具备强类型的特点，同时支持Lambda函数，但只能在 Scala 和 Java 语言中使用。在 Spark 2.0 后，为了方便开发者，Spark 将 DataFrame 和 Dataset 的 API 融合到一起，提供了结构化的 API(Structured API)，即用户可以通过一套标准的 API 就能完成对两者的操作。</p>
+<p>静态类型与运行时类型安全</p>
+<p>静态类型 (Static-typing) 与运行时类型安全 (runtime type-safety) 主要表现如下:</p>
+<p>在实际使用中，如果你用的是 Spark SQL 的查询语句，则直到运行时你才会发现有语法错误，而如果你用的是 DataFrame 和 Dataset，则在编译时就可以发现错误 (这节省了开发时间和整体代价)。DataFrame 和 Dataset 主要区别在于：</p>
+<p>在 DataFrame 中，当你调用了 API 之外的函数，编译器就会报错，但如果你使用了一个不存在的字段名字，编译器依然无法发现。而 Dataset 的 API 都是用 Lambda 函数和 JVM 类型对象表示的，所有不匹配的类型参数在编译时就会被发现。</p>
+<p>以上这些最终都被解释成关于类型安全图谱，对应开发中的语法和分析错误。在图谱中，Dataset 最严格，但对于开发者来说效率最高。</p>
+<h2 id="Untypeed-和-Typed"><a href="#Untypeed-和-Typed" class="headerlink" title="Untypeed 和 Typed"></a>Untypeed 和 Typed</h2><p>DataFrame API 被标记为 Untyped API，而 DataSet API 被标记为 Typed API。DataFrame 的 Untyped 是相对于语言或 API 层面而言，它确实有明确的 Scheme 结构，即列名，列类型都是确定的，但这些信息完全由 Spark 来维护，Spark 只会在运行时检查这些类型和指定类型是否一致。这也就是为什么在 Spark 2.0 之后，官方推荐把 DataFrame 看做是 DatSet[Row]，Row 是 Spark 中定义的一个 trait，其子类中封装了列字段的信息。</p>
+<p>相对而言，DataSet 是 Typed 的，即强类型。如下面代码，DataSet 的类型由 Case Class(Scala) 或者 Java Bean(Java) 来明确指定的，在这里即每一行数据代表一个 Person，这些信息由 JVM 来保证正确性，所以字段名错误和类型错误在编译的时候就会被 IDE 所发现。</p>
+<p>val dataSet: Dataset[Person] = spark.read.json(“people.json”).as[Person]</p>
+<h2 id="DataFrame-amp-DataSet-amp-RDDs-总结"><a href="#DataFrame-amp-DataSet-amp-RDDs-总结" class="headerlink" title="DataFrame &amp; DataSet &amp; RDDs 总结"></a>DataFrame &amp; DataSet &amp; RDDs 总结</h2><ul>
+<li>RDDs 适合非结构化数据的处理，而 DataFrame &amp; DataSet 更适合结构化数据和半结构化的处理；</li>
+<li>DataFrame &amp; DataSet 可以通过统一的 Structured API 进行访问，而 RDDs 则更适合函数式编程的场景；</li>
+<li>相比于 DataFrame 而言，DataSet 是强类型的 (Typed)，有着更为严格的静态类型检查；</li>
+<li>DataSets、DataFrames、SQL 的底层都依赖了 RDDs API，并对外提供结构化的访问接口。</li>
+</ul>
+<h2 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h2><p>DataFrame、DataSet 和 Spark SQL 的实际执行流程都是相同的：</p>
+<ol>
+<li>进行 DataFrame/Dataset/SQL 编程；</li>
+<li>如果是有效的代码，即代码没有编译错误，Spark 会将其转换为一个逻辑计划；</li>
+<li>Spark 将此逻辑计划转换为物理计划，同时进行代码优化；</li>
+<li>Spark 然后在集群上执行这个物理计划 (基于 RDD 操作) 。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/11/Spark%20SQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/11/Spark%20SQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">Spark源码</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-11 12:22:00 / 修改时间：14:55:29" itemprop="dateCreated datePublished" datetime="2020-12-11T12:22:00+08:00">2020-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Spark-SQL源码分析"><a href="#Spark-SQL源码分析" class="headerlink" title="Spark SQL源码分析"></a>Spark SQL源码分析</h1><p><strong>调用SQL时</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SparkSession</span> -&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sql</span></span>(sqlText: <span class="type">String</span>): <span class="type">DataFrame</span> = &#123;</span><br><span class="line"></span><br><span class="line"> <span class="type">Dataset</span>.ofRows(self, sessionState.sqlParser.parsePlan(sqlText))</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a>Parser</h2><p>parsePlan方法会返回一个LogicalPlan对象；</p>
+<p>第一步，利用 antlr4 生成的 SqlBaseLexer【val lexer = new SqlBaseLexer(new UpperCaseCharStream(CharStreams.fromString(command)))】 对SQL进行词法分析，生成一个CommonTokenStream 对象【val tokenStream = new CommonTokenStream(lexer)】</p>
+<p>第二步，利用 antlr4 生成的 SqlBaseParser 【val parser = new SqlBaseParser(tokenStream)】对SQL进行语法分析，得到 Unresolved LogicalPlan</p>
+<p>以下均在 QueryExecution 中执行</p>
+<h2 id="Analyzer"><a href="#Analyzer" class="headerlink" title="Analyzer"></a>Analyzer</h2><p>Analyzer 持有一个 SessionCatalog 对象的引用</p>
+<p>Analyzer 继承自 RuleExecutor[LogicalPlan]，因此可以对 LogicalPlan 进行转换</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> analyzed: <span class="type">LogicalPlan</span> = &#123;</span><br><span class="line"></span><br><span class="line"> <span class="type">SparkSession</span>.setActiveSession(sparkSession)</span><br><span class="line"></span><br><span class="line"> sparkSession.sessionState.analyzer.executeAndCheck(logical)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过 Catalog 确定每张表对应的字段集、字段类型、数据存储位置，生成Resolved Logical Plan</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkAnalysis</span></span>(plan: <span class="type">LogicalPlan</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> u: <span class="type">UnresolvedRelation</span> =&gt;</span><br><span class="line"></span><br><span class="line">	 u.failAnalysis(<span class="string">s&quot;Table or view not found: <span class="subst">$&#123;u.tableIdentifier&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ResolveRelations</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关联表</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">def</span> <span class="title">lookupTableFromCatalog</span></span>(</span><br><span class="line"></span><br><span class="line">  u: <span class="type">UnresolvedRelation</span>,</span><br><span class="line"></span><br><span class="line">  defaultDatabase: <span class="type">Option</span>[<span class="type">String</span>] = <span class="type">None</span>): <span class="type">LogicalPlan</span> =&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> optimizedPlan: <span class="type">LogicalPlan</span> = sparkSession.sessionState.optimizer.execute(withCachedData)</span><br></pre></td></tr></table></figure>
+
+<p>逻辑优化器，会进行谓词下推，列值裁剪，常量折叠，谓词合并等等一系列逻辑优化</p>
+<p>根据预先定义好的规则对 Resolved Logical Plan 进行优化并生成 Optimized Logical Plan</p>
+<h2 id="SparkPlanner"><a href="#SparkPlanner" class="headerlink" title="SparkPlanner"></a>SparkPlanner</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> sparkPlan: <span class="type">SparkPlan</span> = &#123;</span><br><span class="line"></span><br><span class="line"> <span class="type">SparkSession</span>.setActiveSession(sparkSession)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// <span class="doctag">TODO:</span> We use next(), i.e. take the first plan returned by the planner, here for now,</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">//    but we will implement to choose the best plan.</span></span><br><span class="line"></span><br><span class="line"> planner.plan(<span class="type">ReturnAnswer</span>(optimizedPlan)).next()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把 Logical Plan 转变为 Physical Plan</p>
+<h2 id="执行-Physical-Plan"><a href="#执行-Physical-Plan" class="headerlink" title="执行 Physical Plan"></a>执行 Physical Plan</h2><p>lazy val executedPlan: SparkPlan = prepareForExecution(sparkPlan)</p>
+<p><strong>转成RDD</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Internal version of the RDD. Avoids copies and has no schema */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">lazy</span> <span class="keyword">val</span> toRdd: <span class="type">RDD</span>[<span class="type">InternalRow</span>] = &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (sparkSession.sessionState.conf.getConf(<span class="type">SQLConf</span>.<span class="type">USE_CONF_ON_RDD_OPERATION</span>)) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> <span class="type">SQLExecutionRDD</span>(executedPlan.execute(), sparkSession.sessionState.conf)</span><br><span class="line"></span><br><span class="line"> &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">  executedPlan.execute()</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
@@ -1330,129 +955,18 @@
   </span>
   <span class="author" itemprop="copyrightHolder">sevncz</span>
 </div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
-
-
-
-  
-  
-
-  
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -1465,17 +979,6 @@
 
 
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>
