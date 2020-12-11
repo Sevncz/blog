@@ -1,3 +1,7 @@
-# 笔记本一枚
+# Blog
 
-记录一点工作中的问题
+## 博客提交和部署命令
+`hexo g -d`
+
+## 博客源码提交
+`git push origin hexo`
