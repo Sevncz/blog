@@ -196,20 +196,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -252,7 +252,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/02/Yarn%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/03/MapReduce%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_1169.JPG">
@@ -265,7 +265,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/02/Yarn%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Yarn 运行的基本原理</a>
+          <a href="/2020/12/03/MapReduce%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">MapReduce运行的基本原理</a>
         </h2>
 
         <div class="post-meta-container">
@@ -276,14 +276,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-02 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-02T12:22:00+08:00">2020-12-02</time>
+      <time title="创建时间：2020-12-03 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-03T12:22:00+08:00">2020-12-03</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-11 22:25:39" itemprop="dateModified" datetime="2020-12-11T22:25:39+08:00">2020-12-11</time>
+        <time title="修改时间：2020-12-11 22:24:48" itemprop="dateModified" datetime="2020-12-11T22:24:48+08:00">2020-12-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -312,59 +312,114 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Yarn 是分布式集群资源调度框架</p>
-<p>YARN 是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在YARN上，由YARN进行统一的管理和资源分配。</p>
-<p>Yarn 包括两个部分：一个是资源管理器（Resource Manger），一个是节点管理器（Node Manager）。</p>
+          <p>MapReduce 即是编程模型也是计算框架。开发人员必须基于MapReduce 编程模型进行开发，然后将程序通过MapReduce计算框架分发到Hadoop集群中运行。</p>
+<p>大数据计算的核心思想是移动计算，它比移动数据更划算，传统的编程模型进行大数据计算就会遇到很多困难，因此Hadoop大数据计算使用这种MapReduce的编程模型。</p>
+<h2 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h2><p>作为一种编程模型，该模型主要分为两个过程，即 <code>Map</code> 和 <code>Reduce</code>。 <code>MapReduce</code> 的整体思想是： <strong>将输入的数据分成 M 个 <code>tasks</code>， 由用户自定义的 <code>Map</code> 函数去执行任务，产出 <code>&lt;Key, Value&gt;</code>形式的中间数据，然后相同的 key 通过用户自定义的 <code>Reduce</code> 函数去聚合，得到最终的结果。</strong></p>
+<p>MapReduce执行过程主要包括:</p>
+<h3 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h3><p>具体过程如下：</p>
+<p><strong>Map端</strong></p>
 <ul>
-<li><p>ResourceManger：负责整个集群的资源调度管理，通常部署在独立的服务器上；ResourceManager 负责给用户提交的所有应用程序分配资源，它根据应用程序优先级、队列容量、ACLs、数据位置等信息，作出决策，然后以共享的、安全的、多租户的方式指定分配策略，调度集群资源。</p>
-</li>
-<li><p>NodeManager：是YARN集群中每个具体节点的管理者。主要负责该节点内所有容器的生命周期的管理，监视资源和跟踪节点健康，在集群的每一台计算服务器上都会启动，基本上跟 HDFS 的 DataNode 进程一起出现。</p>
-</li>
-<li><ul>
-<li>启动时向ResourceManager注册并定时发送心跳信息，等待ResourceManger的指令；</li>
-<li>维护Container的生命周期，监控Container的资源使用情况；</li>
-<li>管理任务运行时的相关依赖，根据ApplicationMaster 的需要，在启动 Container 之前将需要的程序及依赖拷贝到本地。</li>
+<li>根据输入输入信息，将输入数据 split 成 M 份</li>
+<li>在所有可用的<code>worker</code>节点中，起 M 个<code>task</code>任务的线程， 每个任务会读取对应一个 split 当做输入。</li>
+<li>调用 <code>map</code> 函数，将输入转化为 <code>&lt;Key, Value&gt;</code> 格式的中间数据，并且排序后，写入磁盘。 这里，每个 <code>task</code> 会写 R 个文件，对应着 <code>Reduce</code> 任务数。 数据写入哪个文件的规则有 <code>Partitioner</code> 决定，默认是 <code>hash(key) % R</code></li>
+<li>(可选) 为了优化性能，中间还可以用一个 <code>combiner</code> 的中间过程</li>
 </ul>
+<p><strong>Reduce 端</strong></p>
+<ul>
+<li><p><code>map</code> 阶段结束以后， 开始进入 <code>Reduce</code> 阶段，每个 <code>Reduce task</code>会从所有的 <code>Map</code> 中间数据中，获取属于自己的一份数据，拿到所有数据后，一般会进行排序<code>(Hadoop 框架是这样做)</code> 。</p>
+<blockquote>
+<p>说明： 这个排序是非常必要的，主要因为 <code>Reduce</code> 函数的输入 是 <code>&lt;key, []values&gt;</code> 的格式，因为需要根据key去排序。为啥不用 <code>map&lt;&gt;()</code> 去实现呢？ 原因：因为map必须存到内存中，但是实际中数据量很大，往往需要溢写到磁盘。 但是排序是可以做到的，比如归并排序。 这也就是map端产出数据需要排序，Reduce端获取数据后也需要先排序的原因。</p>
+</blockquote>
 </li>
-<li><p>ApplicationMaster：在用户提交一个应用程序时，YARN会启动一个轻量级的进程ApplicationMaster。ApplicationMaster负责协调来自ResourceManager的资源，并通过NodeManager监视容器内资源的使用情况，同时还负责任务的监控与容错。</p>
+<li><p>调用 <code>Reduce</code> 函数，得到最终的结果输出结果，存入对应的文件</p>
 </li>
-<li><ul>
-<li>根据应用的运行状态来决定动态计算资源需求；</li>
-<li>向 ResourceManager申请资源，监控申请的资源的使用情况；</li>
-<li>跟踪任务状态和进度，报告资源的使用情况和应用的进度信息；</li>
-<li>负责任务的容错。</li>
-</ul>
-</li>
-<li><p>Contain：是YARN中的资源抽象，它封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等。当 AM 向RM申请资源时，RM为AM返回的资源使用Container表示的。YARN会为每一个任务分配一个Container，该任务只能使用该Container中描述的资源。AM可在Container内运行任何类型的任务。例如，MapReduce ApplicationMaster 请求一个容器来启动 Map 或 Reduce 任务，而 Giraph ApplicationMaster 请求一个容器来运行 Giraph 任务。</p>
+<li><p>(可选) 汇总所有 <code>Reduce</code>任务的结果。一般不做汇总，因为通常一个任务的结果往往是另一个 <code>MapReduce</code>任务的输入，因此没必要汇总到一个文件中。</p>
 </li>
 </ul>
-<h2 id="Yarn-工作流程"><a href="#Yarn-工作流程" class="headerlink" title="Yarn 工作流程"></a>Yarn 工作流程</h2><ol>
-<li>Client提交作业到YARN；</li>
-<li>RM 选择一个 NM，启动一个Container 并运行AM 实例；</li>
-<li>AM 根据实际需要向RM请求跟多的Container资源（如果作业很小，AM会选择在其自己的JVM中运行任务）；</li>
-<li>AM通过获取到的Container资源执行分布式计算。</li>
-</ol>
-<h2 id="YARN工作原理详述"><a href="#YARN工作原理详述" class="headerlink" title="YARN工作原理详述"></a><strong>YARN</strong>工作原理详述</h2><p><strong>1.作业提交</strong></p>
-<p>Step1：Client调用job.waitForCompletion 方法，向整个集群提交 MR 作业</p>
-<p>Step2.：新的作业ID（应用ID）由RM分配</p>
-<p>Step3：作业的Client核实作业的输出，计算输入的split，将作业的资源（包括jar包，配置文件，split信息）拷贝给HDFS</p>
-<p>Step4：通过调用RM的submitApplication()来提交作业</p>
-<p><strong>2.作业初始化</strong></p>
-<p>Step5：当RM收到submitApplication()的请求时，就将该请求发给调度器（Scheduler），调度器分配Container，然后资源管理器在该Container内启动AM，由NM监控</p>
-<p>Step6：MR作业的AM是一个主类为MRAppMaster的Java应用，其通过创造一些bookkeeping对象来监控作业的进度，得到任务的进度和完成报告</p>
-<p>Step7：通过分布式文件系统得到由Client计算好的输入Split，然后为每一个输入split创建一个map任务，根据mapreduce.job.reduces创建reduce任务对象</p>
-<p><strong>3.任务分配</strong></p>
-<p>如果作业很小，AM会选择在其自己的JVM中运行任务</p>
-<p>Step8：如果不是小作业，AM向RM请求Container来运行所有的map和reduce任务。这些请求时通过心跳来传输的，包括每个map任务的数据位置，比如存放输入split的主机名和机架（rack），调度器利用这些信息来调度任务，尽量将任务分配给存储数据的节点，或者分配给和存放输入spit的节点相同机架的节点。</p>
-<p><strong>4.任务运行</strong></p>
-<p>Step9：当一个任务由RM的调度器分配给一个container后，AM通过联系NM来启动container。</p>
-<p>Step10：任务由一个主类为YarnChild的Java应用执行，在运行任务之前首先本地化任务需要的资源，比如作业配置，jar文件，以及分布式缓存的所有文件</p>
-<p>Step11：最后运行map或者reduce任务</p>
-<p>YarnChild运行在一个专用的JVM中，但是YARN不支持JVM重用。</p>
-<p><strong>5.进度和状态更新</strong></p>
-<p>YARN 中的任务将其进度和状态 (包括 counter) 返回给AM, 客户端每秒 (通 mapreduce.client.progressmonitor.pollinterval 设置) 向AM请求进度更新, 展示给用户。</p>
-<p><strong>6.作业完成</strong></p>
-<p>除了向AM请求作业进度外, 客户端每 5 分钟都会通过调用 waitForCompletion() 来检查作业是否完成，时间间隔可以通过 mapreduce.client.completion.pollinterval 来设置。作业完成之后, AM和 container 会清理工作状态， OutputCommiter 的作业清理方法也会被调用。作业的信息会被作业历史服务器存储以备之后用户核查。</p>
+<h3 id="Master-数据结构"><a href="#Master-数据结构" class="headerlink" title="Master 数据结构"></a>Master 数据结构</h3><p><code>master</code> 是 <code>MapReduce</code> 任务中最核心的角色，它需要维护 <strong>状态信息</strong> 和 <strong>文件信息</strong>。</p>
+<ul>
+<li>状态信息：<ul>
+<li><code>map</code> 任务状态</li>
+<li><code>Reduce</code> 任务状态</li>
+<li><code>worker</code> 节点状态</li>
+</ul>
+</li>
+<li>文件信息<ul>
+<li>输入文件信息</li>
+<li>输出文件信息</li>
+<li><code>map</code>中间数据文件信息</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>由于 <code>master</code> 节点进程是整个任务的枢纽，因此，它需要维护输入文件地址，<code>map</code>任务执行完后，会产出中间数据文件等待 <code>reducer</code> 去获取，因此 <code>map</code>完成后, 会向 <code>master</code> 上报这些文件的位置和大小信息，这些信息随着<code>Reduce</code>任务的启动而分发下推到对应的 <code>worker</code>。</p>
+</blockquote>
+<h3 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h3><h4 id="worker-节点失败"><a href="#worker-节点失败" class="headerlink" title="worker 节点失败"></a>worker 节点失败</h4><p>master 会周期性向所有节点发送 ping 心跳检测，如果超时未回复，master 会认为该 worker 已经故障。任何在该节点完成的 map 或者 reduce 任务都会标记为 idle，并由其他的 worker 重新执行。</p>
+<blockquote>
+<p>说明： 因为<code>MapReduce</code> 为了减少网络带宽的消耗，<code>map</code>的数据是存储在本地磁盘的，如果某个<code>worker</code>机器故障，会导致其他的<code>Reduce</code> 任务拿不到对应的中间数据，所以需要重跑任务。那么这也可以看出，如果利用<code>hadoop</code> 等分布式文件系统来存储中间数据，其实对于完成的<code>map</code>任务，是不需要重跑的，代价就是增加网络带宽。</p>
+</blockquote>
+<h4 id="Master-节点失败"><a href="#Master-节点失败" class="headerlink" title="Master 节点失败"></a>Master 节点失败</h4><p>master 节点失败，在没有实现HA的情况下，可以说基本整个MapReduce任务就已经挂了，对于这种情况，直接重启 master 重跑任务就OK了。如果集群有高可用方案，比如 master 主副备用，就可以实现 master 的高可用，<strong>代价就是得同步维护主副之间的状态信息和文件信息等。</strong></p>
+<h4 id="失败处理的语义"><a href="#失败处理的语义" class="headerlink" title="失败处理的语义"></a>失败处理的语义</h4><p>只要<code>Map</code> <code>Reduce</code>函数是确定的，语义上不管是分布式执行还是单机执行，结果都是一致的。每个<code>map</code> <code>Reduce</code> 任务输出是通过原子提交来保证的， 即：<strong>一个任务要么有完整的最终文件，要么存在最终输出结果，要么不存在。</strong></p>
+<ul>
+<li>每个进行中的任务，在没有最终语义完成之前，都只写临时文件，每个<code>Reduce</code> 任务会写一个，而每个<code>Map</code>任务会写 R 个，对应 R 个<code>reducer</code>.</li>
+<li>当 <code>Map</code> 任务完成的时候，会向<code>master</code>发送文件位置，大小等信息。<code>Master</code>如果接受到一个已经完成的<code>Map</code>任务的信息，就忽略掉，否则，会记录这个信息。</li>
+<li>当 <code>Reduce</code> 任务完成的时候，会将临时文件重命名为最终的输出文件， 如果多个相同的<code>Reduce</code>任务在多台机器执行完，会多次覆盖输出文件，这个由底层文件系统的<code>rename</code>操作的原子性，保证任何时刻，看到的都是一个完整的成功结果</li>
+</ul>
+<p>对于大部分确定性的任务，不管是分布式还是串行执行，最终都会得到一致的结果。对于不确定的<code>map</code> 或者<code>Reduce</code> 任务，<code>MapReduce</code> 保证提供一个弱的，仍然合理的语义。</p>
+<h4 id="存储优化"><a href="#存储优化" class="headerlink" title="存储优化"></a>存储优化</h4><p>由于网络带宽资源的昂贵性，因此对<code>MapReduce</code> 存储做了很多必要的优化。</p>
+<ul>
+<li>通过从本地磁盘读取文件，节约网络带宽</li>
+<li>GFS 将文件分解成多个 大小通常为 64M 的<code>block</code>, 并多备份存储在不同的机器上，在调度时，会考虑文件的位置信息，尽可能在存有输入文件的机器上调度<code>map</code>任务，避免网络IO。</li>
+<li>任务失败时，也会尝试在离副本最近的worker中执行，比如同一子网下的机器。</li>
+<li>MapReduce 任务在大集群中执行时，大部分输入直接可以从磁盘中读取，不消耗带宽。</li>
+</ul>
+<h4 id="任务粒度"><a href="#任务粒度" class="headerlink" title="任务粒度"></a>任务粒度</h4><p>通常情况下，任务数即为O(M+R)，这个数量应当比<code>worker</code>数量多得多，这样利于负载均衡和失败恢复的情况，但是也不能无限增长，因为太多任务的调度，会消耗<code>master</code> 存储任务信息的内存资源，如果启动task所花的时间比任务执行时间还多，那就不偿失了。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="自定义分区函数（partition）"><a href="#自定义分区函数（partition）" class="headerlink" title="自定义分区函数（partition）"></a>自定义分区函数（partition）</h4><p>自定义分区可以更好地符合业务和进行负载均衡，防止数据倾斜。 默认只是简单的 <code>hash(key) % R</code></p>
+<h4 id="有序保证"><a href="#有序保证" class="headerlink" title="有序保证"></a>有序保证</h4><p>每个partition内的数据都是排序的，这样有利于Reduce阶段的merge合并</p>
+<h4 id="Combiner-函数"><a href="#Combiner-函数" class="headerlink" title="Combiner 函数"></a>Combiner 函数</h4><p>这个是每个<code>map</code>阶段完成之后，局部先做一次聚合。比如：词频统计，每个 Word 可能出现了100次，如果不使用<code>combiner</code>， 就会发送100 个 <code>&lt;word, 1&gt;</code>, 如果<code>combiner</code>聚合之后，则为 <code>&lt;word, 100&gt;</code>, 大大地减少了网络传输和磁盘的IO。</p>
+<h4 id="输入输出类型"><a href="#输入输出类型" class="headerlink" title="输入输出类型"></a>输入输出类型</h4><p>一个<code>reader</code>没必要非要从文件读数据，<code>MapReduce</code> 支持可以从不同的数据源中以多种不同的方式读取数据，比如从数据库读取，用户只需要自定义split规则，就能轻易实现。</p>
+<h4 id="计数器"><a href="#计数器" class="headerlink" title="计数器"></a>计数器</h4><p><code>MapReduce</code> 还添加了计数器，可以用来检测<code>MapReduce</code>的一些中间操作。</p>
+<h2 id="计算框架"><a href="#计算框架" class="headerlink" title="计算框架"></a>计算框架</h2><p>MapReduce 流程：input &gt; Splitting &gt; Mapping &gt; Shuffling &gt; Reducing &gt; Result</p>
+<p>MapReduce程序读取的数据，都是存储在HDFS的数据，最后的结果，也是要保存在HDFS中，因此，MapReduce要解决的第一个问题就是数据的切分问题。</p>
+<p>Split大小的计算</p>
+<ul>
+<li>max.split(100M)</li>
+<li>min.split(10M)</li>
+<li>block(64M)</li>
+<li>max(min.split, min(max.split, block))</li>
+</ul>
+<h3 id="Shuffle"><a href="#Shuffle" class="headerlink" title="Shuffle"></a>Shuffle</h3><p>处于map和reduce之间，该阶段是最重要的阶段，也是最难的阶段。</p>
+<h4 id="input"><a href="#input" class="headerlink" title="input"></a>input</h4><p>map 执行的时候，数据来源是HDFS上的block，在MapReduce概念中，读取的是split，split和block对应的。</p>
+<h4 id="map阶段"><a href="#map阶段" class="headerlink" title="map阶段"></a>map阶段</h4><p>经过自定义的 map 函数的处理后，结果以 key/value 的形式输出，但是这些结果要送到以后的哪一个 reduce 去执行，需要 partition 来决定。</p>
+<h4 id="partition"><a href="#partition" class="headerlink" title="partition"></a>partition</h4><p>根据 key 或者 value 的值，以及 reduce 的数量，来决定当前的这对输出数据要交到那个 reduce 去处理。</p>
+<p>默认方法：对 key hash 以后再以 reduce 的数量取模。</p>
+<p>也可以由程序自定义 partition 函数，partition 只是对数据以后要被送到哪个 reduce 去处理做了一个标注，而不是立马把数据进行分区。</p>
+<p>数据倾斜和负载均衡：默认的 partition 是可能产生数据倾斜和负载均衡，如果产生数据倾斜，就需要重新定义 partition 的分区规则，就可以避免数据倾斜问题。</p>
+<h5 id="内存缓冲区的概念"><a href="#内存缓冲区的概念" class="headerlink" title="内存缓冲区的概念"></a>内存缓冲区的概念</h5><p>==每个map任务都有一个内存缓冲区，用于存储任务的输出，默认缓冲区的大小是100M，这个值是可以通过io.sort.mb来调整。由于缓冲区的空间大小有限，所以，当map task的输出结果很多的时候，内存缓冲区就装不下这么多的数据，也就需要将数据写到磁盘去。因此需要一个阈值（io.sort.spill.percent，默认是80%），当内存达到阈值以后，就会有一个单独的后台线程，负责将内存中的数据写到磁盘，这个过程叫做<strong>溢写**</strong>，**由于是由单独的线程来负责溢写，所以，溢写过程不会影响map结果的输出，但是，如果此期间缓冲区被写满，map就会阻塞知道写磁盘过程完成。==</p>
+<p>这里，就有两个过程，一个写内存的过程，另外一个是写磁盘的过程。  </p>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>这里的 sort 是按字典顺序排列，而不是按数值大小进行排序</p>
+<h4 id="combine"><a href="#combine" class="headerlink" title="combine"></a>combine</h4><p>将排好序的数据，按照键相同的合并在一起的规则，进行值的合并。</p>
+<p>map 的输出结果在经过 partition 阶段的处理后，明确了要发给哪个 reduce 去做处理，当写入内存后，需要将所有的键值对按照 key 进行 sort，在 sort 的基础上，再对结果进行 combine，最后，再写到磁盘文件上。所以，在磁盘上的数据，是已经分好区的，并且已经排好序的。</p>
+<p><strong>溢写磁盘需要注意的地方：</strong>==如果map的输出结果很大，有多次溢写发生的话，磁盘上就会存在多个溢写文件（每次溢写都会产生一个溢写文件），在map task真正的完成是时，会将所有的溢写文件都Merge到一个溢写文件中，这个过程就叫Merge。比如，从一个map读取过来的是&lt;aaa, 5&gt;，另外一个map读取的 是&lt;aaa，8&gt;。相同的key，就会merge成一个group{aaa，[5, 8…]}，这个数组中的不同的值，就是从不同的溢写文件中读取过来的，然后把这些值加起来。==</p>
+<p><strong>为什么要设置内存缓冲区：</strong>批量收集 map 的结果，减少磁盘 IO 的次数，提高频率。</p>
+<p><strong>磁盘文件要写到哪里：</strong>写磁盘将按照轮询方式写到mapred.local.dir属性指定的作业特定子目录的目录中。也就是存放在TaskTracker够得着的某个本地目录，每一个reduce task不断通过RPC从JobTracker中获取map task是否完成的信息，如果reduce task得到通知，获知某台TaskTracker上的map task完成，Shuffle的后半段就开始了。 </p>
+<p><strong>所有的合并究竟是为什么：</strong> 因为map节点和reduce节点之间的数据拷贝是通过网络进行拷贝的，数据量越小，拷贝的越快，相应的处理也就越快。所以合并的目的就是减少map的输出数据量，让网络拷贝尽可能快。</p>
+<p>需要特殊说明的是，以上的步骤，都是在本地机器上完成，并不需要通过网络进行数据的传输。   </p>
+<h4 id="reduce的shuffle细节"><a href="#reduce的shuffle细节" class="headerlink" title="reduce的shuffle细节"></a>reduce的shuffle细节</h4><p><strong>copy阶段</strong></p>
+<p>reduce进程启动一些数据的copy线程，这个线程叫做fetcher线程，通过http方式请求map task所在的TaskTracker，来获取map task的输出数据。</p>
+<p>reduce拷贝数据，不是进行随意的拷贝，之前的partition，已经将数据分好区，reduce只是拷贝各个map上分割给自己的那一部分数据，拷贝到本地后，从每一个map上拷贝过来的数据都是一个小文件，也是需要对这些小文件进行合并的。合并以后，输出到reduce进行处理。</p>
+<ul>
+<li><p>加入client有设置过combiner，那么现在就是使用combiner的时候了。将有相同key的key/value对的value加起来，减少溢写到磁盘的数据量。</p>
+</li>
+<li><p>当整个map结束后再对磁盘中这个map所产生的所有临时文件做合并（merge）</p>
+</li>
+<li><p>reduce从tasktracker copy数据</p>
+</li>
+<li><p>copy 过来的数据会先放在内存缓冲区，这里的缓冲区大小要比map端的更为灵活，它基于jvm的heap size 设置</p>
+</li>
+<li><p>merge的三种形式：1、内存到内存；2、内存到磁盘；3、磁盘到磁盘；merge从不同tasktracker上拿到的数据。</p>
+</li>
+</ul>
 
       
     </div>
@@ -384,7 +439,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
