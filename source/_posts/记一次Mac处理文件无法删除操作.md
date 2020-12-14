@@ -1,8 +1,10 @@
 ---
 title: 记一次Mac处理文件无法删除操作
 date: 2020-12-14 10:34:43
-tags: Mac
-categories: Shell
+tags: 
+  - Shell
+  - Mac
+categories: server
 ---
 
 ## 处理流程
