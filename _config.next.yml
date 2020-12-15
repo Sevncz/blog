@@ -83,6 +83,7 @@ menu:
   home: / || fa fa-home
   bigdata: /categories/bigdata/ || fa fa-project-diagram
   server: /categories/server/ || fa fa-server
+  redis: /categories/redis/ || fa fa-coffee
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
