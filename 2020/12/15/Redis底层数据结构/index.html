@@ -23,30 +23,33 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="努力赚钱">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sevncz&#39;s Blog">
-<meta property="og:url" content="http://sevncz.xyz/page/2/index.html">
+<meta name="description" content="一提到 Redis，我们的脑子里马上就会出现一个词：“快”，这里的快，体现在Redis接收到一个键值对操作后，能以微秒级别的速度找到数据，并快速完成操作。那，为什么这么快呢？一方面，这是因为它是内存数据库，所有的操作都是在内存上完成，内存的访问速度本身就很快。另一方面，这要归功于它的数据结构，这是因为，键值对是按一定的数据结构来阻止的，操作键值对最终就是对数据结构进行增删改查操作，所以高效的数据结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis">
+<meta property="og:url" content="http://sevncz.xyz/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Sevncz&#39;s Blog">
-<meta property="og:description" content="努力赚钱">
+<meta property="og:description" content="一提到 Redis，我们的脑子里马上就会出现一个词：“快”，这里的快，体现在Redis接收到一个键值对操作后，能以微秒级别的速度找到数据，并快速完成操作。那，为什么这么快呢？一方面，这是因为它是内存数据库，所有的操作都是在内存上完成，内存的访问速度本身就很快。另一方面，这要归功于它的数据结构，这是因为，键值对是按一定的数据结构来阻止的，操作键值对最终就是对数据结构进行增删改查操作，所以高效的数据结">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-15T02:01:35.000Z">
+<meta property="article:modified_time" content="2020-12-15T17:28:52.621Z">
 <meta property="article:author" content="sevncz">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://sevncz.xyz/page/2/">
+<link rel="canonical" href="http://sevncz.xyz/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>Sevncz's Blog</title>
+<title>redis | Sevncz's Blog</title>
   
 
 
@@ -173,7 +176,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -186,6 +189,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E7%A7%8D%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">六种底层数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E5%92%8C%E5%80%BC%E7%94%A8%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%84%E7%BB%84%E7%BB%87"><span class="nav-number">2.</span> <span class="nav-text">键和值用什么结构组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">哈希冲突问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rehash"><span class="nav-number">4.</span> <span class="nav-text">rehash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">集合数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">5.1.</span> <span class="nav-text">有哪些底层数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8"><span class="nav-number">5.1.1.</span> <span class="nav-text">压缩列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8"><span class="nav-number">5.1.2.</span> <span class="nav-text">跳表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%9A%84%E6%93%8D%E4%BD%9C%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">不同的操作复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -247,9 +251,10 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
@@ -269,9 +274,9 @@
       <meta itemprop="name" content="Sevncz's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">redis</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          redis
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -317,7 +322,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>一提到 Redis，我们的脑子里马上就会出现一个词：“快”，这里的快，体现在Redis接收到一个键值对操作后，能以微秒级别的速度找到数据，并快速完成操作。那，为什么这么快呢？一方面，这是因为它是内存数据库，所有的操作都是在内存上完成，内存的访问速度本身就很快。另一方面，这要归功于它的数据结构，这是因为，键值对是按一定的数据结构来阻止的，操作键值对最终就是对数据结构进行增删改查操作，所以高效的数据结构是Redis快速处理数据的基础。</p>
+        <p>一提到 Redis，我们的脑子里马上就会出现一个词：“快”，这里的快，体现在Redis接收到一个键值对操作后，能以微秒级别的速度找到数据，并快速完成操作。那，为什么这么快呢？一方面，这是因为它是内存数据库，所有的操作都是在内存上完成，内存的访问速度本身就很快。另一方面，这要归功于它的数据结构，这是因为，键值对是按一定的数据结构来阻止的，操作键值对最终就是对数据结构进行增删改查操作，所以高效的数据结构是Redis快速处理数据的基础。</p>
 <h2 id="六种底层数据结构"><a href="#六种底层数据结构" class="headerlink" title="六种底层数据结构"></a>六种底层数据结构</h2><p>Redis的底层数据结构一共有6中，分别是简单动态字符串、双向链表、压缩列表、哈希表、跳表和整数数组。</p>
 <p>Redis的数据类型和底层数据结构的关系：</p>
 <ul>
@@ -374,7 +379,6 @@
 <p>1、内存利用率，数组和压缩列表都是非常紧凑的数据结构，它比链表占用的内存要更少。Redis是内存数据库，大量数据存到内存中，此时需要做尽可能的优化，提高内存的利用率。 </p>
 <p>2、数组对CPU高速缓存支持更友好，所以Redis在设计时，集合数据元素较少情况下，默认采用内存紧凑排列的方式存储，同时利用CPU高速缓存不会降低访问速度。当数据元素超过设定阈值后，避免查询时间复杂度太高，转为哈希和跳表数据结构存储，保证查询效率。</p>
 
-      
     </div>
 
     
@@ -382,8 +386,24 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/14/Spark%20Streaming%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" rel="prev" title="Spark Streaming运行的基本原理">
+                  <i class="fa fa-chevron-left"></i> Spark Streaming运行的基本原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/15/Hive%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E5%8F%8A%E4%BC%98%E5%8C%96/" rel="next" title="Hive文件存储及优化">
+                  Hive文件存储及优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -391,9 +411,7 @@
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+
 
 
 <script>
