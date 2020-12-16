@@ -21,7 +21,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 <meta name="description" content="努力赚钱">
 <meta property="og:type" content="website">
@@ -124,21 +124,6 @@
         <li class="menu-item menu-item-home">
 
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-bigdata">
-
-    <a href="/categories/bigdata/" rel="section"><i class="fa fa-project-diagram fa-fw"></i>大数据</a>
-
-  </li>
-        <li class="menu-item menu-item-server">
-
-    <a href="/categories/server/" rel="section"><i class="fa fa-server fa-fw"></i>服务器</a>
-
-  </li>
-        <li class="menu-item menu-item-redis">
-
-    <a href="/categories/redis/" rel="section"><i class="fa fa-coffee fa-fw"></i>redis</a>
 
   </li>
         <li class="menu-item menu-item-tags">
@@ -246,6 +231,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -262,7 +248,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/07/Spark%20SQL%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_1169.JPG">
@@ -275,7 +261,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">Redis底层数据结构</a>
+          <a href="/2020/12/07/Spark%20SQL%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Spark SQL运行的基本原理</a>
         </h2>
 
         <div class="post-meta-container">
@@ -286,14 +272,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-15 10:01:35" itemprop="dateCreated datePublished" datetime="2020-12-15T10:01:35+08:00">2020-12-15</time>
+      <time title="创建时间：2020-12-07 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-07T12:22:00+08:00">2020-12-07</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-16 01:41:49" itemprop="dateModified" datetime="2020-12-16T01:41:49+08:00">2020-12-16</time>
+        <time title="修改时间：2020-12-11 22:25:09" itemprop="dateModified" datetime="2020-12-11T22:25:09+08:00">2020-12-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -301,7 +287,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
         </span>
     </span>
 
@@ -315,62 +301,45 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>一提到 Redis，我们的脑子里马上就会出现一个词：“快”，这里的快，体现在Redis接收到一个键值对操作后，能以微秒级别的速度找到数据，并快速完成操作。那，为什么这么快呢？一方面，这是因为它是内存数据库，所有的操作都是在内存上完成，内存的访问速度本身就很快。另一方面，这要归功于它的数据结构，这是因为，键值对是按一定的数据结构来阻止的，操作键值对最终就是对数据结构进行增删改查操作，所以高效的数据结构是Redis快速处理数据的基础。</p>
-<h2 id="六种底层数据结构"><a href="#六种底层数据结构" class="headerlink" title="六种底层数据结构"></a>六种底层数据结构</h2><p>Redis的底层数据结构一共有6中，分别是简单动态字符串、双向链表、压缩列表、哈希表、跳表和整数数组。</p>
-<p>Redis的数据类型和底层数据结构的关系：</p>
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Spark SQL 是 Spark 中的一个子模块，主要用于操作结构化数据。它具有以下特点：</p>
 <ul>
-<li>String：简单动态字符串</li>
-<li>List：双向链表、压缩列表</li>
-<li>Hash：压缩列表、哈希表</li>
-<li>Sorted Set：压缩列表、跳表</li>
-<li>Set：哈希表、整数数组</li>
+<li>能够将 SQL 查询与 Spark 程序无缝混合，允许您使用 SQL 或 DataFrame API 对结构化数据进行查询；</li>
+<li>支持多种开发语言；</li>
+<li>支持多达上百种的外部数据源，包括 Hive，Avro，Parquet，ORC，JSON 和 JDBC 等；</li>
+<li>支持 HiveQL 语法以及 Hive SerDes 和 UDF，允许你访问现有的 Hive 仓库；</li>
+<li>支持标准的 JDBC 和 ODBC 连接；</li>
+<li>支持优化器，列式存储和代码生成等特性；</li>
+<li>支持扩展并能保证容错。</li>
 </ul>
-<p>这里，我们会遇到如下几个问题：</p>
-<ol>
-<li>这些数据结构都是值的底层实现，键和值本身之间用什么结构组织？</li>
-<li>为什么集合类型有那么多的底层结构，它们都是怎么组织数据的，都很快吗？</li>
-<li>什么是简单动态字符串，和常用的字符串是一回事吗？</li>
-</ol>
-<h2 id="键和值用什么结构组织"><a href="#键和值用什么结构组织" class="headerlink" title="键和值用什么结构组织"></a>键和值用什么结构组织</h2><p>为了实现从键到值的快速访问，Redis 使用了一个哈希表来保存所有的键值对。</p>
-<p>一个哈希表，其实就是一个数组，数组的每个元素称为一个哈希桶。所以，我们常说一个哈希表是由多个哈希桶组成，每个哈希桶中保存了键值对数据。哈希桶中并不存键值对本身，而是存键值对指针。因为这个哈希表保存了所有的键值对，所以，我也把它称为全局哈希表。哈希表的好处就是我们能以O(1)的时间复杂度来快速查找到键值对 （我们只需要计算键的哈希值，就可以知道它所对应的哈希桶位置，然后就可以访问相应的 entry 元素）。</p>
-<p>当哈希表写入大量的数据之后，就会产生哈希冲突和rehash可能带来的操作阻塞。</p>
-<h2 id="哈希冲突问题"><a href="#哈希冲突问题" class="headerlink" title="哈希冲突问题"></a>哈希冲突问题</h2><p>当你往哈希表中写入更多数据时，哈希冲突是不可避免的问题。这里的哈希冲突，也就是指，两个 key 的哈希值和哈希桶计算对应关系时，正好落在了同一个哈希桶中。</p>
-<p>Redis 解决哈希冲突的方式，就是链式哈希。链式哈希，就是指同一个哈希桶中的多个元素用一个链表来保存，它们之间依次用指针连接。</p>
-<h2 id="rehash"><a href="#rehash" class="headerlink" title="rehash"></a>rehash</h2><p>随着哈希表里写入的数据越来越多，哈希冲突可能也会越来越多，这就会导致某些哈希冲突链过长，进而导致这个链上的元素查找耗时长，效率降低。这时，Redis会对哈希表做rehash操作。rehash也就是增加现有的哈希桶数量，让逐渐增多的entry元素能在更多的桶之间分散保存，减少单个桶的元素数量，从而减少单个桶的冲突。</p>
-<p>具体做法：为了使rehash操作更高效，Redis默认使用了两个全局哈希表：哈希表1和哈希表2。一开始，当你插入数据时，默认会使用哈希表1，此时的哈希表2并没有分配空间，随着数据逐步增多，Redis开始进行rehash，这个过程分为3步：</p>
-<ol>
-<li>给哈希表2分配更多的空间，例如时当前哈希表1大小的2倍；</li>
-<li>把哈希表1中的数据重新映射并拷贝到哈希表2中；</li>
-<li>释放哈希表1的空间。</li>
-</ol>
-<p>到此，就可以从哈希表 1 切换到哈希表 2，用增大的哈希表 2 保存更多数据，而原来的哈希表 1 留作下一次 rehash 扩容备用。</p>
-<p>这个过程看似简单，但是第二步涉及到大量的数据拷贝，如果一次性把哈希表1中的数据都迁移完，会造成Redis线程阻塞，无法服务其他请求。</p>
-<p>为了避免这个问题，Redis采用了<strong>渐进式rehash</strong>。</p>
-<p>简单来说就是第二步拷贝数据时，Redis仍然正常处理客户端请求，每处理一个请求时，从哈希表1中的第一个索引位置开始，顺带着将这个索引位置上的所有entry拷贝到哈希表2中；等处理下一个请求时，再顺带拷贝哈希表1中下一个索引位置的entry。这样就巧妙地把一次性大量拷贝的开销，分摊到了多次处理请求的过程中，避免了耗时操作，保证了数据的快速访问。</p>
-<p>对于String类型来说，找到哈希桶就能直接增删改查了，所以哈希表O(1)操作复杂度也就是它的复杂度了。</p>
-<p>对于集合类型来说，即使找到哈希桶了，还要在集合中再进一步操作。</p>
-<h2 id="集合数据操作"><a href="#集合数据操作" class="headerlink" title="集合数据操作"></a>集合数据操作</h2><p>和 String 类型不同，一个集合类型的值，第一步是通过全局哈希表找到对应的哈希桶位置，第二步是在集合中再增删改查。那么，集合的操作效率和哪些因素相关呢？</p>
-<p>首先，与集合的底层数据结构有关。例如，使用哈希表实现的集合，要比使用链表实现的集合访问效率更高。其次，操作效率和这些操作本身的执行特点有关，比如读写一个元素的操作要比读写所有元素的效率高。</p>
-<h3 id="有哪些底层数据结构"><a href="#有哪些底层数据结构" class="headerlink" title="有哪些底层数据结构"></a>有哪些底层数据结构</h3><p>集合类型的底层数据结构主要有 5 种：整数数组、双向链表、哈希表、压缩列表和跳表。</p>
-<p>哈希表的操作特点如上文所述，整数数组和双向链表也很常见，它们的操作特征都是顺序读写，也就是通过数组下标或者链表的指针逐个元素访问，操作复杂度基本时O(N)，操作效率比较低；</p>
-<h4 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h4><p>压缩列表实际上类似于一个数组，数组中的每一个元素都对应保存一个数据。和数组不同的是，压缩列表在表头有三个字段 zlbytes、zltail 和 zllen，分别表示列表长度、列表尾的偏移量和列表中的 entry 个数；压缩列表在表尾还有一个 zlend，表示列表结束。</p>
-<p>在压缩列表中，如果我们要查找定位第一个元素和最后一个元素，可以通过表头三个字段的长度直接定位，复杂度是 O(1)。而查找其他元素时，就没有这么高效了，只能逐个查找，此时的复杂度就是 O(N) 了。</p>
-<h4 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h4><p>有序链表只能逐一查找元素，导致操作起来非常缓慢，于是就出现了跳表。具体来说，跳表在链表的基础上，增加了多级索引，通过索引位置的几个跳转，实现数据的快速定位，</p>
-<h2 id="不同的操作复杂度"><a href="#不同的操作复杂度" class="headerlink" title="不同的操作复杂度"></a>不同的操作复杂度</h2><p>集合类型的操作类型很多，有读写单个集合元素的，例如 HGET、HSET，也有操作多个元素的，例如 SADD，还有对整个集合进行遍历操作的，例如 SMEMBERS。这么多操作，它们的复杂度也各不相同。而复杂度的高低又是我们选择集合类型的重要依据。</p>
-<ul>
-<li>单元素操作是基础；</li>
-<li>范围操作非常耗时；</li>
-<li>统计操作通常高效；</li>
-<li>例外情况只有几个。</li>
+<h2 id="DataFrame和RDD"><a href="#DataFrame和RDD" class="headerlink" title="DataFrame和RDD"></a>DataFrame和RDD</h2><p>主要区别在于RDD面向的是非结构化数据，DataFreame面向的是结构化数据。</p>
+<p>DataFrame 内部的有明确 Scheme 结构，即列名、列字段类型都是已知的，这带来的好处是可以减少数据读取以及更好地优化执行计划，从而保证查询效率。</p>
+<h2 id="DataFrame-和-RDDs-应该如何选择？"><a href="#DataFrame-和-RDDs-应该如何选择？" class="headerlink" title="DataFrame 和 RDDs 应该如何选择？"></a>DataFrame 和 RDDs 应该如何选择？</h2><ul>
+<li>如果你想使用函数式编程而不是 DataFrame API，则使用 RDDs；</li>
+<li>如果你的数据是非结构化的 (比如流媒体或者字符流)，则使用 RDDs，</li>
+<li>如果你的数据是结构化的 (如 RDBMS 中的数据) 或者半结构化的 (如日志)，出于性能上的考虑，应优先使用 DataFrame。</li>
 </ul>
-<p>第一，单元素操作，是指每一种集合类型对单个数据实现的增删改查操作。例如，Hash 类型的 HGET、HSET 和 HDEL，Set 类型的 SADD、SREM、SRANDMEMBER 等。这些操作的复杂度由集合采用的数据结构决定，例如，HGET、HSET 和 HDEL 是对哈希表做操作，所以它们的复杂度都是 O(1)；Set 类型用哈希表作为底层数据结构时，它的 SADD、SREM、SRANDMEMBER 复杂度也是 O(1)。</p>
-<p>这里，有个地方你需要注意一下，集合类型支持同时对多个元素进行增删改查，例如 Hash 类型的 HMGET 和 HMSET，Set 类型的 SADD 也支持同时增加多个元素。此时，这些操作的复杂度，就是由单个元素操作复杂度和元素个数决定的。例如，HMSET 增加 M 个元素时，复杂度就从 O(1) 变成 O(M) 了。</p>
-<p>第二，范围操作，是指集合类型中的遍历操作，可以返回集合中的所有数据，比如 Hash 类型的 HGETALL 和 Set 类型的 SMEMBERS，或者返回一个范围内的部分数据，比如 List 类型的 LRANGE 和 ZSet 类型的 ZRANGE。这类操作的复杂度一般是 O(N)，比较耗时，我们应该尽量避免。不过，Redis 从 2.8 版本开始提供了 SCAN 系列操作（包括 HSCAN，SSCAN 和 ZSCAN），这类操作实现了渐进式遍历，每次只返回有限数量的数据。这样一来，相比于 HGETALL、SMEMBERS 这类操作来说，就避免了一次性返回所有元素而导致的 Redis 阻塞。</p>
-<p>第三，统计操作，是指集合类型对集合中所有元素个数的记录，例如 LLEN 和 SCARD。这类操作复杂度只有 O(1)，这是因为当集合类型采用压缩列表、双向链表、整数数组这些数据结构时，这些结构中专门记录了元素的个数统计，因此可以高效地完成相关操作。</p>
-<p>第四，例外情况，是指某些数据结构的特殊记录，例如压缩列表和双向链表都会记录表头和表尾的偏移量。这样一来，对于 List 类型的 LPOP、RPOP、LPUSH、RPUSH 这四个操作来说，它们是在列表的头尾增删元素，这就可以通过偏移量直接定位，所以它们的复杂度也只有 O(1)，可以实现快速操作。</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>整数数组和压缩列表在查找时间复杂度方面并没有很大的优势，那为什么 Redis 还会把它们作为底层数据结构呢？</p>
-<p>1、内存利用率，数组和压缩列表都是非常紧凑的数据结构，它比链表占用的内存要更少。Redis是内存数据库，大量数据存到内存中，此时需要做尽可能的优化，提高内存的利用率。 </p>
-<p>2、数组对CPU高速缓存支持更友好，所以Redis在设计时，集合数据元素较少情况下，默认采用内存紧凑排列的方式存储，同时利用CPU高速缓存不会降低访问速度。当数据元素超过设定阈值后，避免查询时间复杂度太高，转为哈希和跳表数据结构存储，保证查询效率。</p>
+<h2 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h2><p>DataSet 也是分布式的数据集合，在Spark1.6版本引入，它继承了RDD和DataFrame的优点，具备强类型的特点，同时支持Lambda函数，但只能在 Scala 和 Java 语言中使用。在 Spark 2.0 后，为了方便开发者，Spark 将 DataFrame 和 Dataset 的 API 融合到一起，提供了结构化的 API(Structured API)，即用户可以通过一套标准的 API 就能完成对两者的操作。</p>
+<p>静态类型与运行时类型安全</p>
+<p>静态类型 (Static-typing) 与运行时类型安全 (runtime type-safety) 主要表现如下:</p>
+<p>在实际使用中，如果你用的是 Spark SQL 的查询语句，则直到运行时你才会发现有语法错误，而如果你用的是 DataFrame 和 Dataset，则在编译时就可以发现错误 (这节省了开发时间和整体代价)。DataFrame 和 Dataset 主要区别在于：</p>
+<p>在 DataFrame 中，当你调用了 API 之外的函数，编译器就会报错，但如果你使用了一个不存在的字段名字，编译器依然无法发现。而 Dataset 的 API 都是用 Lambda 函数和 JVM 类型对象表示的，所有不匹配的类型参数在编译时就会被发现。</p>
+<p>以上这些最终都被解释成关于类型安全图谱，对应开发中的语法和分析错误。在图谱中，Dataset 最严格，但对于开发者来说效率最高。</p>
+<h2 id="Untypeed-和-Typed"><a href="#Untypeed-和-Typed" class="headerlink" title="Untypeed 和 Typed"></a>Untypeed 和 Typed</h2><p>DataFrame API 被标记为 Untyped API，而 DataSet API 被标记为 Typed API。DataFrame 的 Untyped 是相对于语言或 API 层面而言，它确实有明确的 Scheme 结构，即列名，列类型都是确定的，但这些信息完全由 Spark 来维护，Spark 只会在运行时检查这些类型和指定类型是否一致。这也就是为什么在 Spark 2.0 之后，官方推荐把 DataFrame 看做是 DatSet[Row]，Row 是 Spark 中定义的一个 trait，其子类中封装了列字段的信息。</p>
+<p>相对而言，DataSet 是 Typed 的，即强类型。如下面代码，DataSet 的类型由 Case Class(Scala) 或者 Java Bean(Java) 来明确指定的，在这里即每一行数据代表一个 Person，这些信息由 JVM 来保证正确性，所以字段名错误和类型错误在编译的时候就会被 IDE 所发现。</p>
+<p>val dataSet: Dataset[Person] = spark.read.json(“people.json”).as[Person]</p>
+<h2 id="DataFrame-amp-DataSet-amp-RDDs-总结"><a href="#DataFrame-amp-DataSet-amp-RDDs-总结" class="headerlink" title="DataFrame &amp; DataSet &amp; RDDs 总结"></a>DataFrame &amp; DataSet &amp; RDDs 总结</h2><ul>
+<li>RDDs 适合非结构化数据的处理，而 DataFrame &amp; DataSet 更适合结构化数据和半结构化的处理；</li>
+<li>DataFrame &amp; DataSet 可以通过统一的 Structured API 进行访问，而 RDDs 则更适合函数式编程的场景；</li>
+<li>相比于 DataFrame 而言，DataSet 是强类型的 (Typed)，有着更为严格的静态类型检查；</li>
+<li>DataSets、DataFrames、SQL 的底层都依赖了 RDDs API，并对外提供结构化的访问接口。</li>
+</ul>
+<h2 id="运行原理"><a href="#运行原理" class="headerlink" title="运行原理"></a>运行原理</h2><p>DataFrame、DataSet 和 Spark SQL 的实际执行流程都是相同的：</p>
+<ol>
+<li>进行 DataFrame/Dataset/SQL 编程；</li>
+<li>如果是有效的代码，即代码没有编译错误，Spark 会将其转换为一个逻辑计划；</li>
+<li>Spark 将此逻辑计划转换为物理计划，同时进行代码优化；</li>
+<li>Spark 然后在集群上执行这个物理计划 (基于 RDD 操作) 。</li>
+</ol>
 
       
     </div>
@@ -389,8 +358,679 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/05/Spark%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1169.JPG">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/05/Spark%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Spark 运行的基本原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-05 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-05T12:22:00+08:00">2020-12-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-11 22:24:58" itemprop="dateModified" datetime="2020-12-11T22:24:58+08:00">2020-12-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="RDD基本概念"><a href="#RDD基本概念" class="headerlink" title="RDD基本概念"></a><strong>RDD</strong>基本概念</h2><p>A Resilient Distributed Dataset (RDD), the basic abstraction in Spark. Represents an immutable, partitioned collection of elements that can be operated on in parallel.</p>
+<ul>
+<li><p>RDD是Resilient Distributed Dataset(弹性分布式数据集)的简称。RDD的弹性体现在计算方面，当Spark进行计算时，某一阶段出现数据丢失或者故障，可以通过RDD的血缘关系就行修复。     </p>
+</li>
+<li><ul>
+<li>\1. 内存的弹性：内存与磁盘的自动切换    </li>
+<li>\2. 容错的弹性：数据丢失可以自动恢复</li>
+<li>\3. 计算的弹性：计算出错重试机制</li>
+<li>\4. 分片的弹性：根据需要重新分片 </li>
+</ul>
+</li>
+<li><p>RDD是不可变(immutable)的，一旦创建就不可改变。RDDA–&gt;RDDB，RDDA 经过转换操作变成RDDB，这两个RDD具有血缘关系，但是是两个不同的RDD，体现了RDD一旦创建就不可变的性质。</p>
+</li>
+</ul>
+<h2 id="RDD特点"><a href="#RDD特点" class="headerlink" title="RDD特点"></a>RDD特点</h2><ul>
+<li>A list of partitions</li>
+<li>A function for computing each split</li>
+<li>A list of dependencies on other RDDs</li>
+<li>Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)</li>
+<li>Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)</li>
+</ul>
+<p>源码解析</p>
+<ul>
+<li>A list of partitions</li>
+</ul>
+<p>/**</p>
+<p> * Implemented by subclasses to return the set of partitions in this RDD. This method will only</p>
+<p> * be called once, so it is safe to implement a time-consuming computation in it.</p>
+<p> *</p>
+<p> * The partitions in this array must satisfy the following property:</p>
+<p> *  <code>rdd.partitions.zipWithIndex.forall &#123; case (partition, index) =&gt; partition.index == index &#125;</code></p>
+<p> */</p>
+<p>protected def getPartitions: Array[Partition]</p>
+<ul>
+<li>compute函数的入参必然是partition，因为对RDD做计算相当于对每个partition做计算</li>
+</ul>
+<p>/**</p>
+<p> * :: DeveloperApi ::</p>
+<p> * Implemented by subclasses to compute a given partition.</p>
+<p> */</p>
+<p>@DeveloperApi</p>
+<p>def compute(split: Partition, context: TaskContext): Iterator[T]</p>
+<ul>
+<li>RDD之间有依赖关系</li>
+</ul>
+<p>/**</p>
+<p> * Implemented by subclasses to return how this RDD depends on parent RDDs. This method will only</p>
+<p> * be called once, so it is safe to implement a time-consuming computation in it.</p>
+<p> */</p>
+<p>protected def getDependencies: Seq[Dependency[_]] = deps</p>
+<ul>
+<li>Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)</li>
+</ul>
+<p>/**</p>
+<p> * Optionally overridden by subclasses to specify placement preferences.</p>
+<p> */</p>
+<p>protected def getPreferredLocations(split: Partition): Seq[String] = Nil</p>
+<ul>
+<li>Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)</li>
+</ul>
+<p>/** Optionally overridden by subclasses to specify how they are partitioned. */</p>
+<p>@transient val partitioner: Option[Partitioner] = None</p>
+<h2 id="RDD操作"><a href="#RDD操作" class="headerlink" title="RDD操作"></a>RDD操作</h2><ul>
+<li><p>Transformations：接受RDD并返回RDD</p>
+</li>
+<li><ul>
+<li>Transformation采用惰性调用机制，每个RDD记录父RDD转换的方法，这种调用链表称之为血缘（lineage）</li>
+</ul>
+</li>
+<li><p>Actions：接受RDD但是返回非RDD</p>
+</li>
+<li><ul>
+<li>Action调用会直接计算</li>
+</ul>
+</li>
+</ul>
+<h2 id="DAG、Stage、Shuffle"><a href="#DAG、Stage、Shuffle" class="headerlink" title="DAG、Stage、Shuffle"></a>DAG、Stage、Shuffle</h2><p>有向无环图，DAGScheduler负责生成DAG，然后将程序分发到分布式计算集群，按计算阶段的先后关系调度执行</p>
+<p>并不是RDD上的每一个转换函数都会生成一个计算计算，通过观察DAG图，RDD之间的转换连接线呈现多对多交叉连接的时候，就会产生新的阶段，一个RDD代表一个数据集，每一个RDD都包含多个分片。</p>
+<p>一个数据集中的多个数据分片需要进行分区传输，写入到另一个数据集的不同分片中，这种数据分区交叉传输的操作，和MapReduce类似，是shuffle过程，Spark也需要通过shuffle将数据进行重新组合，相同的Key的数据放在一起，进行聚合、关联等操作，因而每次shuffle都产生新的计算阶段。这也是为什么计算阶段会有依赖关系，它需要的数据来源于前面一个或多个计算阶段产生的数据，必须等待前面的阶段执行完毕才能进行shuffle，并得到数据</p>
+<p>所以，计算阶段的划分以及是shuffle，而不是转换函数的类型，有的函数有时候有shuffle，有时候没有。</p>
+<p>RDD 已经进行过分区，分区数目和分区Key不变，就不需要再进行shuffle，这种不需要进行shuffle的依赖，被称作窄依赖；相反的，需要进行shuffle的依赖，被称作宽依赖。</p>
+<p>为什么<strong>Spark</strong>比<strong>MapReduce</strong>的效率更高？</p>
+<p>从本质上看，Spark也算是一种MapReduce计算模型的不同实现。Hadoop MapReduce简单粗暴的根据shuffle将大数据计算分成了Map和Reduce阶段，然后就算完事了。而Spark更细腻一些，将前一个的Reduce和后一个的Map连接起来，当作一个阶段持续计算，形成一个更加优雅、高效的计算模型，虽然本质上仍然是Map和Reduce，但是这种多个计算阶段依赖执行的方案可以有效减少对HDFS的访问，减少作业的调度执行次数，因此执行速度也更快。并且Hadoop MapReduce主要使用磁盘存储Shuffle过程中的数据，Spark优先使用内存进行数据存储，包括RDD数据，除非是内存不够用了，否则是尽可能使用内存，这也是Spark性能比Hadoop MapReduce高的原因。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/04/Hive%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1169.JPG">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/04/Hive%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Hive运行的基本原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-04 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-04T12:22:00+08:00">2020-12-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-11 22:24:39" itemprop="dateModified" datetime="2020-12-11T22:24:39+08:00">2020-12-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Hive 是一个构建在 Hadoop 之上的数据仓库，它可以将结构化的数据文件映射成表，并提供类 SQL 查询功能，用于查询的 SQL 语句会被转化为 MapReduce 作业，然后提交到 Hadoop 上运行。</p>
+<p>特点：</p>
+<ol>
+<li>简单、容易上手 (提供了类似 sql 的查询语言 hql)，使得精通 sql 但是不了解 Java 编程的人也能很好地进行大数据分析；</li>
+<li>灵活性高，可以自定义用户函数 (UDF) 和存储格式；</li>
+<li>为超大的数据集设计的计算和存储能力，集群扩展容易;</li>
+<li>统一的元数据管理，可与 presto／impala／sparksql 等共享数据；</li>
+<li>执行延迟高，不适合做数据的实时处理，但适合做海量数据的离线处理。</li>
+</ol>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><table>
+<thead>
+<tr>
+<th>大类</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Integers</strong>（整型）</td>
+<td>TINYINT—1 字节的有符号整数 SMALLINT—2 字节的有符号整数 INT—4 字节的有符号整数 BIGINT—8 字节的有符号整数</td>
+</tr>
+<tr>
+<td><strong>Boolean</strong>（布尔型）</td>
+<td>BOOLEAN—TRUE/FALSE</td>
+</tr>
+<tr>
+<td><strong>Floating point numbers</strong>（浮点型）</td>
+<td>FLOAT— 单精度浮点型 DOUBLE—双精度浮点型</td>
+</tr>
+<tr>
+<td><strong>Fixed point numbers</strong>（定点数）</td>
+<td>DECIMAL—用户自定义精度定点数，比如 DECIMAL(7,2)</td>
+</tr>
+<tr>
+<td><strong>String types</strong>（字符串）</td>
+<td>STRING—指定字符集的字符序列 VARCHAR—具有最大长度限制的字符序列 CHAR—固定长度的字符序列</td>
+</tr>
+<tr>
+<td><strong>Date and time types</strong>（日期时间类型）</td>
+<td>TIMESTAMP — 时间戳 TIMESTAMP WITH LOCAL TIME ZONE — 时间戳，纳秒精度 DATE—日期类型</td>
+</tr>
+<tr>
+<td><strong>Binary types</strong>（二进制类型）</td>
+<td>BINARY—字节序列</td>
+</tr>
+</tbody></table>
+<h2 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h2><p>type - primitive type - number - double - float - biting - int - smallint - tinyint</p>
+<p>​                  - boolean       - string</p>
+<h2 id="复杂类型"><a href="#复杂类型" class="headerlink" title="复杂类型"></a>复杂类型</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>STRUCT</strong></td>
+<td>类似于对象，是字段的集合，字段的类型可以不同，可以使用 名称.字段名 方式进行访问</td>
+<td>STRUCT (‘xiaoming’, 12 , ‘2018-12-12’)</td>
+</tr>
+<tr>
+<td><strong>MAP</strong></td>
+<td>键值对的集合，可以使用 名称[key] 的方式访问对应的值</td>
+<td>map(‘a’, 1, ‘b’, 2)</td>
+</tr>
+<tr>
+<td><strong>ARRAY</strong></td>
+<td>数组是一组具有相同类型和名称的变量的集合，可以使用 名称[index] 访问对应的值</td>
+<td>ARRAY(‘a’, ‘b’, ‘c’, ‘d’)</td>
+</tr>
+</tbody></table>
+<p>内容格式</p>
+<p>Hive 默认使用了几个平时很少出现的字符，这些字符一般不会作为内容出现在文件中</p>
+<p>\n：对于文本文件来说，每行是一条记录，所以可以使用换行符来分割记录</p>
+<p>^A：分割字段 (列)，在 CREATE TABLE 语句中也可以使用八进制编码 \001 来表示</p>
+<p>^B：用于分割 ARRAY 或者 STRUCT 中的元素，或者用于 MAP 中键值对之间的分割，在 CREATE TABLE 语句中也可以使用八进制编码 \002 表示</p>
+<p>^C：用于 MAP 中键和值之间的分割，在 CREATE TABLE 语句中也可以使用八进制编码 \003 表示</p>
+<h2 id="存储格式"><a href="#存储格式" class="headerlink" title="存储格式"></a>存储格式</h2><p><strong>TextFile**</strong>：**存储为纯文本文件。这是Hive默认的文件存储格式。这种存储方式数据不做压缩，磁盘开销大，数据解析开销大。</p>
+<p><strong>SequenceFile**</strong>：**SequenceFile 是 Hadoop API 提供的一种二进制文件，它将数据以&lt;key,value&gt;的形式序列化到文件中。这种二进制文件内部使用 Hadoop 的标准的 Writable 接口实现序列化和反序列化。它与 Hadoop API 中的 MapFile 是互相兼容的。Hive 中的 SequenceFile 继承自 Hadoop API 的 SequenceFile，不过它的 key 为空，使用 value 存放实际的值，这样是为了避免 MR 在运行 map 阶段进行额外的排序操作。</p>
+<p><strong>RCFile**</strong>：**RCFile 文件格式是 FaceBook 开源的一种 Hive 的文件存储格式，首先将表分为几个行组，对每个行组内的数据按列存储，每一列的数据都是分开存储。</p>
+<p><strong>ORC Files：</strong>ORC 是在一定程度上扩展了 RCFile，是对 RCFile 的优化。</p>
+<p><strong>Avro Files**</strong>：**Avro 是一个数据序列化系统，设计用于支持大批量数据交换的应用。它的主要特点有：支持二进制序列化方式，可以便捷，快速的处理大量数据；动态语言友好，Avro提供的机制使动态语言可以方便的处理Avro数据</p>
+<p><strong>Parquet**</strong>：**Parquet 是基于 Dremel 的数据模型和算法实现的，面向分析型业务的列式存储格式。它通过按列进行高效压缩和特殊的编码技术，从而在降低存储空间的同时提高了IO效率。</p>
+<p><strong>以上压缩格式中</strong> <strong>ORC</strong> <strong>和</strong> <strong>Parquet</strong> <strong>的综合性能突出，使用较为广泛，推荐使用这两种格式。</strong></p>
+<p>通常在创建表的时候使用 STORED AS 参数指定存储格式</p>
+<p>各个存储文件类型指定方式如下：</p>
+<ul>
+<li>STORED AS TEXTFILE</li>
+<li>STORED AS SEQUENCEFILE</li>
+<li>STORED AS ORC</li>
+<li>STORED AS PARQUET</li>
+<li>STORED AS AVRO</li>
+<li>STORED AS RCFILE</li>
+</ul>
+<h2 id="内部表和外部表"><a href="#内部表和外部表" class="headerlink" title="内部表和外部表"></a>内部表和外部表</h2><p>内部表又叫做管理表，创建表时不做任何指定，默认创建的就是内部表。创建外部表需要使用 External 进行修饰</p>
+<ul>
+<li><strong>存储位置</strong></li>
+</ul>
+<p>​    内部表：由hive.metastore.warehouse.dir指定，默认在hdfs的/user/hive/warehouse/数据库名.db/表名/ 目录下</p>
+<p>​    外部表：创建表时由 Location 参数指定</p>
+<ul>
+<li><strong>导入数据</strong></li>
+</ul>
+<p>​    内部表：将数据移动到子弟的数据仓库目录下，数据的生命周期由 Hive 来进行管理</p>
+<p>​    外部表：不回移动数据到数据仓库目录，只是在原数据中存储数据的位置</p>
+<ul>
+<li><strong>删除表</strong></li>
+</ul>
+<p>​    内部表：删除元数据（metadata）和文件</p>
+<p>​    外部表：只删除元数据（metadata）</p>
+<h2 id="SQL转化为MapReduce的过程"><a href="#SQL转化为MapReduce的过程" class="headerlink" title="SQL转化为MapReduce的过程"></a>SQL转化为MapReduce的过程</h2><ol>
+<li>语法解析：Antlr 定义 SQL 的语法规则，完成 SQL 词法，语法解析，将 SQL 转化为抽象 语法树 AST Tree；</li>
+<li>语义解析：遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock；</li>
+<li>生成逻辑执行计划：遍历 QueryBlock，翻译为执行操作树 OperatorTree；</li>
+<li>优化逻辑执行计划：逻辑层优化器进行 OperatorTree 变换，合并不必要的 ReduceSinkOperator，减少 shuffle 数据量；</li>
+<li>生成物理执行计划：遍历 OperatorTree，翻译为 MapReduce 任务；</li>
+<li>优化物理执行计划：物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划。</li>
+</ol>
+<p>源码分析</p>
+<p><strong>Hive</strong>是执行命令的流程</p>
+<ol>
+<li><p>启动时初始化SessionState，初始化Config，初始化Log</p>
+</li>
+<li><p>CliDriver main中接受命令行</p>
+</li>
+<li><p>处理命令行，分为以下几种情况</p>
+</li>
+<li><ol>
+<li>处理quit和exit，直接退出</li>
+<li>处理source，执行SQL文件</li>
+<li>处理感叹号命令</li>
+<li>其他命令，包括select等SQL，CommandProcessorFactory.get(tokens, (HiveConf) conf); 在该工厂中会通过用户输入的第一个单词判断命令类型，在HiveCommand这个枚举中定义了一些非SQL查询操作，匹配到命令会选择合适的CommandProcessor实现，比如dfs命令对应DFSProcessor，set命令对应的SetPRocessor等，如果是Select之类的SQL查询，则返回null，然后为这些SQL命令创建一个Driver。</li>
+</ol>
+</li>
+<li><p>获得processor之后开始执行，int processLocalCmd(String cmd, CommandProcessor proc, CliSessionState ss)，调用processor的run方法开始执行命令</p>
+</li>
+<li><p>执行完成之后，通过List<FieldSchema> fieldSchemas = qp.getSchema().getFieldSchemas()获取结果的列名，并随后打印，最后再打印结果集</p>
+</li>
+</ol>
+<h2 id="Hive执行SQL语句"><a href="#Hive执行SQL语句" class="headerlink" title="Hive执行SQL语句"></a>Hive执行SQL语句</h2><p>根据上一节内容，在获取processor之后开始执行命令，这里我们来到了Driver，我们进入到 private CommandProcessorResponse runInternal(String command, boolean alreadyCompiled) 这样一个方法，在该方法中发现一个有意思的东西，Hook，意味着可以写一个外部class配置到hive中查看hive的执行情况，接着进入重点</p>
+<ol>
+<li><p>ret = compileInternal(command); 在该方法中主要是将SQL解析为物理和逻辑执行计划，和Spark差不多</p>
+</li>
+<li><ol>
+<li>将SQL解析为AST树：ASTNode tree = pd.parse(command, ctx); </li>
+<li>初始化事务管理器，记录这次query的信息：SessionState.get().initTxnMgr(conf);</li>
+<li>执行hook：tree = hook.preAnalyze(hookCtx, tree);  </li>
+<li>创建逻辑和物理执行计划：sem.analyze(tree, ctx);</li>
+<li>执行hook：hook.postAnalyze(hookCtx, sem.getRootTasks()); </li>
+</ol>
+</li>
+<li><p>ret = execute();</p>
+</li>
+<li><ol>
+<li>循环执行hook</li>
+<li>初始化运行容器：DriverContext driverCxt = new DriverContext(ctx); driverCxt.prepare(plan); </li>
+<li> 添加running任务：driverCxt.addToRunnable(tsk); 任务会进入一个队列 Queue&lt;Task&lt;? extends Serializable&gt;&gt; runnable; runnable.add(tsk); </li>
+<li>在一个while中启动任务：TaskRunner runner = launchTask(task, queryId, noName, jobname, jobs, driverCxt);</li>
+<li>poll已经完成的任务，并加到hookContext的完成任务列表中：TaskRunner tskRun = driverCxt.pollFinished(); hookContext.addCompleteTask(tskRun);</li>
+<li>遍历子任务加到running：for (Task&lt;? extends Serializable&gt; child : tsk.getChildTasks()) … driverCxt.addToRunnable(child);</li>
+<li>最后计算CPU使用情况，任务完成：plan.setDone()，将该planId加到一个Set集合中</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/03/MapReduce%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1169.JPG">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/03/MapReduce%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">MapReduce运行的基本原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-03 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-03T12:22:00+08:00">2020-12-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-11 22:24:48" itemprop="dateModified" datetime="2020-12-11T22:24:48+08:00">2020-12-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>MapReduce 即是编程模型也是计算框架。开发人员必须基于MapReduce 编程模型进行开发，然后将程序通过MapReduce计算框架分发到Hadoop集群中运行。</p>
+<p>大数据计算的核心思想是移动计算，它比移动数据更划算，传统的编程模型进行大数据计算就会遇到很多困难，因此Hadoop大数据计算使用这种MapReduce的编程模型。</p>
+<h2 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h2><p>作为一种编程模型，该模型主要分为两个过程，即 <code>Map</code> 和 <code>Reduce</code>。 <code>MapReduce</code> 的整体思想是： <strong>将输入的数据分成 M 个 <code>tasks</code>， 由用户自定义的 <code>Map</code> 函数去执行任务，产出 <code>&lt;Key, Value&gt;</code>形式的中间数据，然后相同的 key 通过用户自定义的 <code>Reduce</code> 函数去聚合，得到最终的结果。</strong></p>
+<p>MapReduce执行过程主要包括:</p>
+<h3 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h3><p>具体过程如下：</p>
+<p><strong>Map端</strong></p>
+<ul>
+<li>根据输入输入信息，将输入数据 split 成 M 份</li>
+<li>在所有可用的<code>worker</code>节点中，起 M 个<code>task</code>任务的线程， 每个任务会读取对应一个 split 当做输入。</li>
+<li>调用 <code>map</code> 函数，将输入转化为 <code>&lt;Key, Value&gt;</code> 格式的中间数据，并且排序后，写入磁盘。 这里，每个 <code>task</code> 会写 R 个文件，对应着 <code>Reduce</code> 任务数。 数据写入哪个文件的规则有 <code>Partitioner</code> 决定，默认是 <code>hash(key) % R</code></li>
+<li>(可选) 为了优化性能，中间还可以用一个 <code>combiner</code> 的中间过程</li>
+</ul>
+<p><strong>Reduce 端</strong></p>
+<ul>
+<li><p><code>map</code> 阶段结束以后， 开始进入 <code>Reduce</code> 阶段，每个 <code>Reduce task</code>会从所有的 <code>Map</code> 中间数据中，获取属于自己的一份数据，拿到所有数据后，一般会进行排序<code>(Hadoop 框架是这样做)</code> 。</p>
+<blockquote>
+<p>说明： 这个排序是非常必要的，主要因为 <code>Reduce</code> 函数的输入 是 <code>&lt;key, []values&gt;</code> 的格式，因为需要根据key去排序。为啥不用 <code>map&lt;&gt;()</code> 去实现呢？ 原因：因为map必须存到内存中，但是实际中数据量很大，往往需要溢写到磁盘。 但是排序是可以做到的，比如归并排序。 这也就是map端产出数据需要排序，Reduce端获取数据后也需要先排序的原因。</p>
+</blockquote>
+</li>
+<li><p>调用 <code>Reduce</code> 函数，得到最终的结果输出结果，存入对应的文件</p>
+</li>
+<li><p>(可选) 汇总所有 <code>Reduce</code>任务的结果。一般不做汇总，因为通常一个任务的结果往往是另一个 <code>MapReduce</code>任务的输入，因此没必要汇总到一个文件中。</p>
+</li>
+</ul>
+<h3 id="Master-数据结构"><a href="#Master-数据结构" class="headerlink" title="Master 数据结构"></a>Master 数据结构</h3><p><code>master</code> 是 <code>MapReduce</code> 任务中最核心的角色，它需要维护 <strong>状态信息</strong> 和 <strong>文件信息</strong>。</p>
+<ul>
+<li>状态信息：<ul>
+<li><code>map</code> 任务状态</li>
+<li><code>Reduce</code> 任务状态</li>
+<li><code>worker</code> 节点状态</li>
+</ul>
+</li>
+<li>文件信息<ul>
+<li>输入文件信息</li>
+<li>输出文件信息</li>
+<li><code>map</code>中间数据文件信息</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>由于 <code>master</code> 节点进程是整个任务的枢纽，因此，它需要维护输入文件地址，<code>map</code>任务执行完后，会产出中间数据文件等待 <code>reducer</code> 去获取，因此 <code>map</code>完成后, 会向 <code>master</code> 上报这些文件的位置和大小信息，这些信息随着<code>Reduce</code>任务的启动而分发下推到对应的 <code>worker</code>。</p>
+</blockquote>
+<h3 id="容错"><a href="#容错" class="headerlink" title="容错"></a>容错</h3><h4 id="worker-节点失败"><a href="#worker-节点失败" class="headerlink" title="worker 节点失败"></a>worker 节点失败</h4><p>master 会周期性向所有节点发送 ping 心跳检测，如果超时未回复，master 会认为该 worker 已经故障。任何在该节点完成的 map 或者 reduce 任务都会标记为 idle，并由其他的 worker 重新执行。</p>
+<blockquote>
+<p>说明： 因为<code>MapReduce</code> 为了减少网络带宽的消耗，<code>map</code>的数据是存储在本地磁盘的，如果某个<code>worker</code>机器故障，会导致其他的<code>Reduce</code> 任务拿不到对应的中间数据，所以需要重跑任务。那么这也可以看出，如果利用<code>hadoop</code> 等分布式文件系统来存储中间数据，其实对于完成的<code>map</code>任务，是不需要重跑的，代价就是增加网络带宽。</p>
+</blockquote>
+<h4 id="Master-节点失败"><a href="#Master-节点失败" class="headerlink" title="Master 节点失败"></a>Master 节点失败</h4><p>master 节点失败，在没有实现HA的情况下，可以说基本整个MapReduce任务就已经挂了，对于这种情况，直接重启 master 重跑任务就OK了。如果集群有高可用方案，比如 master 主副备用，就可以实现 master 的高可用，<strong>代价就是得同步维护主副之间的状态信息和文件信息等。</strong></p>
+<h4 id="失败处理的语义"><a href="#失败处理的语义" class="headerlink" title="失败处理的语义"></a>失败处理的语义</h4><p>只要<code>Map</code> <code>Reduce</code>函数是确定的，语义上不管是分布式执行还是单机执行，结果都是一致的。每个<code>map</code> <code>Reduce</code> 任务输出是通过原子提交来保证的， 即：<strong>一个任务要么有完整的最终文件，要么存在最终输出结果，要么不存在。</strong></p>
+<ul>
+<li>每个进行中的任务，在没有最终语义完成之前，都只写临时文件，每个<code>Reduce</code> 任务会写一个，而每个<code>Map</code>任务会写 R 个，对应 R 个<code>reducer</code>.</li>
+<li>当 <code>Map</code> 任务完成的时候，会向<code>master</code>发送文件位置，大小等信息。<code>Master</code>如果接受到一个已经完成的<code>Map</code>任务的信息，就忽略掉，否则，会记录这个信息。</li>
+<li>当 <code>Reduce</code> 任务完成的时候，会将临时文件重命名为最终的输出文件， 如果多个相同的<code>Reduce</code>任务在多台机器执行完，会多次覆盖输出文件，这个由底层文件系统的<code>rename</code>操作的原子性，保证任何时刻，看到的都是一个完整的成功结果</li>
+</ul>
+<p>对于大部分确定性的任务，不管是分布式还是串行执行，最终都会得到一致的结果。对于不确定的<code>map</code> 或者<code>Reduce</code> 任务，<code>MapReduce</code> 保证提供一个弱的，仍然合理的语义。</p>
+<h4 id="存储优化"><a href="#存储优化" class="headerlink" title="存储优化"></a>存储优化</h4><p>由于网络带宽资源的昂贵性，因此对<code>MapReduce</code> 存储做了很多必要的优化。</p>
+<ul>
+<li>通过从本地磁盘读取文件，节约网络带宽</li>
+<li>GFS 将文件分解成多个 大小通常为 64M 的<code>block</code>, 并多备份存储在不同的机器上，在调度时，会考虑文件的位置信息，尽可能在存有输入文件的机器上调度<code>map</code>任务，避免网络IO。</li>
+<li>任务失败时，也会尝试在离副本最近的worker中执行，比如同一子网下的机器。</li>
+<li>MapReduce 任务在大集群中执行时，大部分输入直接可以从磁盘中读取，不消耗带宽。</li>
+</ul>
+<h4 id="任务粒度"><a href="#任务粒度" class="headerlink" title="任务粒度"></a>任务粒度</h4><p>通常情况下，任务数即为O(M+R)，这个数量应当比<code>worker</code>数量多得多，这样利于负载均衡和失败恢复的情况，但是也不能无限增长，因为太多任务的调度，会消耗<code>master</code> 存储任务信息的内存资源，如果启动task所花的时间比任务执行时间还多，那就不偿失了。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="自定义分区函数（partition）"><a href="#自定义分区函数（partition）" class="headerlink" title="自定义分区函数（partition）"></a>自定义分区函数（partition）</h4><p>自定义分区可以更好地符合业务和进行负载均衡，防止数据倾斜。 默认只是简单的 <code>hash(key) % R</code></p>
+<h4 id="有序保证"><a href="#有序保证" class="headerlink" title="有序保证"></a>有序保证</h4><p>每个partition内的数据都是排序的，这样有利于Reduce阶段的merge合并</p>
+<h4 id="Combiner-函数"><a href="#Combiner-函数" class="headerlink" title="Combiner 函数"></a>Combiner 函数</h4><p>这个是每个<code>map</code>阶段完成之后，局部先做一次聚合。比如：词频统计，每个 Word 可能出现了100次，如果不使用<code>combiner</code>， 就会发送100 个 <code>&lt;word, 1&gt;</code>, 如果<code>combiner</code>聚合之后，则为 <code>&lt;word, 100&gt;</code>, 大大地减少了网络传输和磁盘的IO。</p>
+<h4 id="输入输出类型"><a href="#输入输出类型" class="headerlink" title="输入输出类型"></a>输入输出类型</h4><p>一个<code>reader</code>没必要非要从文件读数据，<code>MapReduce</code> 支持可以从不同的数据源中以多种不同的方式读取数据，比如从数据库读取，用户只需要自定义split规则，就能轻易实现。</p>
+<h4 id="计数器"><a href="#计数器" class="headerlink" title="计数器"></a>计数器</h4><p><code>MapReduce</code> 还添加了计数器，可以用来检测<code>MapReduce</code>的一些中间操作。</p>
+<h2 id="计算框架"><a href="#计算框架" class="headerlink" title="计算框架"></a>计算框架</h2><p>MapReduce 流程：input &gt; Splitting &gt; Mapping &gt; Shuffling &gt; Reducing &gt; Result</p>
+<p>MapReduce程序读取的数据，都是存储在HDFS的数据，最后的结果，也是要保存在HDFS中，因此，MapReduce要解决的第一个问题就是数据的切分问题。</p>
+<p>Split大小的计算</p>
+<ul>
+<li>max.split(100M)</li>
+<li>min.split(10M)</li>
+<li>block(64M)</li>
+<li>max(min.split, min(max.split, block))</li>
+</ul>
+<h3 id="Shuffle"><a href="#Shuffle" class="headerlink" title="Shuffle"></a>Shuffle</h3><p>处于map和reduce之间，该阶段是最重要的阶段，也是最难的阶段。</p>
+<h4 id="input"><a href="#input" class="headerlink" title="input"></a>input</h4><p>map 执行的时候，数据来源是HDFS上的block，在MapReduce概念中，读取的是split，split和block对应的。</p>
+<h4 id="map阶段"><a href="#map阶段" class="headerlink" title="map阶段"></a>map阶段</h4><p>经过自定义的 map 函数的处理后，结果以 key/value 的形式输出，但是这些结果要送到以后的哪一个 reduce 去执行，需要 partition 来决定。</p>
+<h4 id="partition"><a href="#partition" class="headerlink" title="partition"></a>partition</h4><p>根据 key 或者 value 的值，以及 reduce 的数量，来决定当前的这对输出数据要交到那个 reduce 去处理。</p>
+<p>默认方法：对 key hash 以后再以 reduce 的数量取模。</p>
+<p>也可以由程序自定义 partition 函数，partition 只是对数据以后要被送到哪个 reduce 去处理做了一个标注，而不是立马把数据进行分区。</p>
+<p>数据倾斜和负载均衡：默认的 partition 是可能产生数据倾斜和负载均衡，如果产生数据倾斜，就需要重新定义 partition 的分区规则，就可以避免数据倾斜问题。</p>
+<h5 id="内存缓冲区的概念"><a href="#内存缓冲区的概念" class="headerlink" title="内存缓冲区的概念"></a>内存缓冲区的概念</h5><p>==每个map任务都有一个内存缓冲区，用于存储任务的输出，默认缓冲区的大小是100M，这个值是可以通过io.sort.mb来调整。由于缓冲区的空间大小有限，所以，当map task的输出结果很多的时候，内存缓冲区就装不下这么多的数据，也就需要将数据写到磁盘去。因此需要一个阈值（io.sort.spill.percent，默认是80%），当内存达到阈值以后，就会有一个单独的后台线程，负责将内存中的数据写到磁盘，这个过程叫做<strong>溢写**</strong>，**由于是由单独的线程来负责溢写，所以，溢写过程不会影响map结果的输出，但是，如果此期间缓冲区被写满，map就会阻塞知道写磁盘过程完成。==</p>
+<p>这里，就有两个过程，一个写内存的过程，另外一个是写磁盘的过程。  </p>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>这里的 sort 是按字典顺序排列，而不是按数值大小进行排序</p>
+<h4 id="combine"><a href="#combine" class="headerlink" title="combine"></a>combine</h4><p>将排好序的数据，按照键相同的合并在一起的规则，进行值的合并。</p>
+<p>map 的输出结果在经过 partition 阶段的处理后，明确了要发给哪个 reduce 去做处理，当写入内存后，需要将所有的键值对按照 key 进行 sort，在 sort 的基础上，再对结果进行 combine，最后，再写到磁盘文件上。所以，在磁盘上的数据，是已经分好区的，并且已经排好序的。</p>
+<p><strong>溢写磁盘需要注意的地方：</strong>==如果map的输出结果很大，有多次溢写发生的话，磁盘上就会存在多个溢写文件（每次溢写都会产生一个溢写文件），在map task真正的完成是时，会将所有的溢写文件都Merge到一个溢写文件中，这个过程就叫Merge。比如，从一个map读取过来的是&lt;aaa, 5&gt;，另外一个map读取的 是&lt;aaa，8&gt;。相同的key，就会merge成一个group{aaa，[5, 8…]}，这个数组中的不同的值，就是从不同的溢写文件中读取过来的，然后把这些值加起来。==</p>
+<p><strong>为什么要设置内存缓冲区：</strong>批量收集 map 的结果，减少磁盘 IO 的次数，提高频率。</p>
+<p><strong>磁盘文件要写到哪里：</strong>写磁盘将按照轮询方式写到mapred.local.dir属性指定的作业特定子目录的目录中。也就是存放在TaskTracker够得着的某个本地目录，每一个reduce task不断通过RPC从JobTracker中获取map task是否完成的信息，如果reduce task得到通知，获知某台TaskTracker上的map task完成，Shuffle的后半段就开始了。 </p>
+<p><strong>所有的合并究竟是为什么：</strong> 因为map节点和reduce节点之间的数据拷贝是通过网络进行拷贝的，数据量越小，拷贝的越快，相应的处理也就越快。所以合并的目的就是减少map的输出数据量，让网络拷贝尽可能快。</p>
+<p>需要特殊说明的是，以上的步骤，都是在本地机器上完成，并不需要通过网络进行数据的传输。   </p>
+<h4 id="reduce的shuffle细节"><a href="#reduce的shuffle细节" class="headerlink" title="reduce的shuffle细节"></a>reduce的shuffle细节</h4><p><strong>copy阶段</strong></p>
+<p>reduce进程启动一些数据的copy线程，这个线程叫做fetcher线程，通过http方式请求map task所在的TaskTracker，来获取map task的输出数据。</p>
+<p>reduce拷贝数据，不是进行随意的拷贝，之前的partition，已经将数据分好区，reduce只是拷贝各个map上分割给自己的那一部分数据，拷贝到本地后，从每一个map上拷贝过来的数据都是一个小文件，也是需要对这些小文件进行合并的。合并以后，输出到reduce进行处理。</p>
+<ul>
+<li><p>加入client有设置过combiner，那么现在就是使用combiner的时候了。将有相同key的key/value对的value加起来，减少溢写到磁盘的数据量。</p>
+</li>
+<li><p>当整个map结束后再对磁盘中这个map所产生的所有临时文件做合并（merge）</p>
+</li>
+<li><p>reduce从tasktracker copy数据</p>
+</li>
+<li><p>copy 过来的数据会先放在内存缓冲区，这里的缓冲区大小要比map端的更为灵活，它基于jvm的heap size 设置</p>
+</li>
+<li><p>merge的三种形式：1、内存到内存；2、内存到磁盘；3、磁盘到磁盘；merge从不同tasktracker上拿到的数据。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/03/MapReduce%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1169.JPG">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/03/MapReduce%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">MapReduce 源码分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-03 12:22:00" itemprop="dateCreated datePublished" datetime="2020-12-03T12:22:00+08:00">2020-12-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-11 22:24:42" itemprop="dateModified" datetime="2020-12-11T22:24:42+08:00">2020-12-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bigdata/" itemprop="url" rel="index"><span itemprop="name">bigdata</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -438,7 +1078,7 @@
 
   
   <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 
