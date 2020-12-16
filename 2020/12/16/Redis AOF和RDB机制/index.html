@@ -30,15 +30,11 @@
 <meta property="og:site_name" content="Sevncz&#39;s Blog">
 <meta property="og:description" content="Redis 的数据存在内存中，这样响应速度会非常快，但是不能忽视的问题是，一旦 Redis 宕机，数据就会丢失，如果从后端数据库恢复这些数据，会存在两个问题：  需要频繁访问数据库，会给数据库带来巨大的压力； 这些数据是从慢速数据库中读取出来的，性能肯定比不上从 Redis 中读取，导致使用这些数据的应用程序响应变慢；  所以，Redis 提供了两个持久化机制，AOF（Append Only Fi">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://sevncz.xyz/2020/12/16/Redis%20AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E5%86%99%E5%9B%9E%E6%9C%BA%E5%88%B6%E4%BC%98%E7%BC%BA%E7%82%B9.jpg">
-<meta property="og:image" content="http://sevncz.xyz/2020/12/16/Redis%20AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84%E9%87%8D%E5%86%99%E8%BF%87%E7%A8%8B.jpg">
-<meta property="og:image" content="http://sevncz.xyz/2020/12/16/Redis%20AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%E6%9C%BA%E5%88%B6%E4%BF%9D%E8%AF%81%E5%BF%AB%E7%85%A7%E6%9C%9F%E9%97%B4%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BF%AE%E6%94%B9.jpg">
 <meta property="article:published_time" content="2020-12-16T02:16:48.000Z">
-<meta property="article:modified_time" content="2020-12-16T03:26:31.931Z">
+<meta property="article:modified_time" content="2020-12-16T03:27:22.027Z">
 <meta property="article:author" content="sevncz">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://sevncz.xyz/2020/12/16/Redis%20AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E5%86%99%E5%9B%9E%E6%9C%BA%E5%88%B6%E4%BC%98%E7%BC%BA%E7%82%B9.jpg">
 
 
 <link rel="canonical" href="http://sevncz.xyz/2020/12/16/Redis%20AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/">
@@ -282,7 +278,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-12-16 10:16:48 / 修改时间：11:26:31" itemprop="dateCreated datePublished" datetime="2020-12-16T10:16:48+08:00">2020-12-16</time>
+      <time title="创建时间：2020-12-16 10:16:48 / 修改时间：11:27:22" itemprop="dateCreated datePublished" datetime="2020-12-16T10:16:48+08:00">2020-12-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,7 +329,7 @@
 <li>“每秒写回”采用一秒写回一次的频率，避免了“同步写回”的性能开销，虽然减少了对系统性能的影响，但是如果发生宕机，上一秒内未落盘的命令操作仍然会丢失。所以，这只能算是，在避免影响主线程性能和避免数据丢失两者间取了个折中。</li>
 </ul>
 <p>三种写回时机的优缺点如下：</p>
-<p><img src="Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E5%86%99%E5%9B%9E%E6%9C%BA%E5%88%B6%E4%BC%98%E7%BC%BA%E7%82%B9.jpg" alt="AOF写回机制优缺点"></p>
+<p>![AOF写回机制优缺点](Redis AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E5%86%99%E5%9B%9E%E6%9C%BA%E5%88%B6%E4%BC%98%E7%BC%BA%E7%82%B9.jpg)</p>
 <p>到这里，我们就可以根据系统对高性能和高可靠性的要求，来选择使用哪种写回策略了。总结一下就是：想要获得高性能，就选择 No 策略；如果想要得到高可靠性保证，就选择 Always 策略；如果允许数据有一点丢失，又希望性能别受太大影响的话，那么就选择 Everysec 策略。</p>
 <h3 id="AOF-的性能问题"><a href="#AOF-的性能问题" class="headerlink" title="AOF 的性能问题"></a>AOF 的性能问题</h3><p>AOF 是以文件的形式在记录接收到的所有写命令。随着接收的写命令越来越多，AOF 文件会越来越大。</p>
 <p>AOF 文件过大会会导致性能问题，主要在于以下3个方面：</p>
@@ -356,7 +352,7 @@
 </ol>
 <p>“一个拷贝”就是指，每次执行重写时，主线程 fork 出后台的 bgrewriteaof 子进程。此时，fork 会把主线程的内存拷贝一份给 bgrewriteaof 子进程，这里面就包含了数据库的最新数据。然后，bgrewriteaof 子进程就可以在不影响主线程的情况下，逐一把拷贝的数据写成操作，记入重写日志。</p>
 <p>“两处日志”又是什么呢？因为主线程未阻塞，仍然可以处理新来的操作。此时，如果有写操作，第一处日志就是指正在使用的 AOF 日志，Redis 会把这个操作写到它的缓冲区。这样一来，即使宕机了，这个 AOF 日志的操作仍然是齐全的，可以用于恢复。而第二处日志，就是指新的 AOF 重写日志。这个操作也会被写到重写日志的缓冲区。这样，重写日志也不会丢失最新的操作。等到拷贝数据的所有操作记录重写完成后，重写日志记录的这些最新操作也会写入新的 AOF 文件，以保证数据库最新状态的记录。此时，我们就可以用新的 AOF 文件替代旧文件了。</p>
-<p><img src="Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84%E9%87%8D%E5%86%99%E8%BF%87%E7%A8%8B.jpg" alt="AOF非阻塞的重写过程"></p>
+<p>![AOF非阻塞的重写过程](Redis AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/AOF%E9%9D%9E%E9%98%BB%E5%A1%9E%E7%9A%84%E9%87%8D%E5%86%99%E8%BF%87%E7%A8%8B.jpg)</p>
 <p>总结来说，每次 AOF 重写时，Redis 会先执行一个内存拷贝，用于重写；然后，使用两个日志保证在重写过程中，新写入的数据不会丢失。而且，因为 Redis 采用额外的线程进行数据重写，所以，这个过程并不会阻塞主线程。</p>
 <h2 id="RDB-文件实现"><a href="#RDB-文件实现" class="headerlink" title="RDB 文件实现"></a>RDB 文件实现</h2><p>AOF 的好处：只需要记录日志，坏处：宕机之后恢复慢。</p>
 <p>RDB把某一时刻的状态以文件的形式写到磁盘上，即使宕机，RDB也不会丢失。</p>
@@ -372,7 +368,7 @@
 <p>为了快照而暂停写操作，肯定是不能接受的。所以这个时候，Redis 就会借助操作系统提供的写时复制技术（Copy-On-Write, COW），在执行快照的同时，正常处理写操作。</p>
 <p>简单来说，bgsave 子进程是由主线程 fork 生成的，可以共享主线程的所有内存数据。bgsave 子进程运行后，开始读取主线程的内存数据，并把它们写入 RDB 文件。</p>
 <p>此时，如果主线程对这些数据也都是读操作（例如图中的键值对 A），那么，主线程和 bgsave 子进程相互不影响。但是，如果主线程要修改一块数据（例如图中的键值对 C），那么，这块数据就会被复制一份，生成该数据的副本。然后，bgsave 子进程会把这个副本数据写入 RDB 文件，而在这个过程中，主线程仍然可以直接修改原来的数据。</p>
-<p><img src="Redis-AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%E6%9C%BA%E5%88%B6%E4%BF%9D%E8%AF%81%E5%BF%AB%E7%85%A7%E6%9C%9F%E9%97%B4%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BF%AE%E6%94%B9.jpg" alt="写时复制机制保证快照期间数据可修改"></p>
+<p>![写时复制机制保证快照期间数据可修改](Redis AOF%E5%92%8CRDB%E6%9C%BA%E5%88%B6/%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%E6%9C%BA%E5%88%B6%E4%BF%9D%E8%AF%81%E5%BF%AB%E7%85%A7%E6%9C%9F%E9%97%B4%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BF%AE%E6%94%B9.jpg)</p>
 <p>这既保证了快照的完整性，也允许主线程同时对数据进行修改，避免了对正常业务的影响。</p>
 <h3 id="RDB的执行频率"><a href="#RDB的执行频率" class="headerlink" title="RDB的执行频率"></a>RDB的执行频率</h3><p>虽然 bgsave 执行时不阻塞主线程，但是，如果频繁地执行全量快照，也会带来两方面的开销。</p>
 <ol>
