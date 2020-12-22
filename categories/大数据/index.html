@@ -23,22 +23,18 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="概述Spark Streaming运行时由Driver和Executor相互协调完成。 Driver端创建StreamingContent，其中包括了DStreamGraph和JobSchedule，它又包括了ReceiverTracker和JobGenerator），Driver主要负责生成调度job、与execuor进行交互、指导工作。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spark Streaming运行的基本原理">
-<meta property="og:url" content="http://sevncz.xyz/2020/12/14/Spark%20Streaming%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/index.html">
+<meta name="description" content="努力赚钱">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sevncz&#39;s Blog">
+<meta property="og:url" content="http://sevncz.xyz/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/index.html">
 <meta property="og:site_name" content="Sevncz&#39;s Blog">
-<meta property="og:description" content="概述Spark Streaming运行时由Driver和Executor相互协调完成。 Driver端创建StreamingContent，其中包括了DStreamGraph和JobSchedule，它又包括了ReceiverTracker和JobGenerator），Driver主要负责生成调度job、与execuor进行交互、指导工作。">
+<meta property="og:description" content="努力赚钱">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-12-14T05:43:00.000Z">
-<meta property="article:modified_time" content="2020-12-22T14:40:58.180Z">
 <meta property="article:author" content="sevncz">
-<meta property="article:tag" content="大数据">
-<meta property="article:tag" content="Spark Streaming">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://sevncz.xyz/2020/12/14/Spark%20Streaming%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+<link rel="canonical" href="http://sevncz.xyz/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
 
 
 <script class="page-configurations">
@@ -46,11 +42,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
-<title>Spark Streaming运行的基本原理 | Sevncz's Blog</title>
+<title>分类: 大数据 | Sevncz's Blog</title>
   
 
 
@@ -167,7 +163,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -180,7 +176,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -243,127 +238,233 @@
 </noscript>
 
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner category posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <h2 class="collection-header">大数据
+          <small>分类</small>
+        </h2>
+      </div>
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/14/Spark%20Streaming%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_1169.JPG">
-      <meta itemprop="name" content="sevncz">
-      <meta itemprop="description" content="努力赚钱">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevncz's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Spark Streaming运行的基本原理
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-14 13:43:00" itemprop="dateCreated datePublished" datetime="2020-12-14T13:43:00+08:00">2020-12-14</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-22 22:40:58" itemprop="dateModified" datetime="2020-12-22T22:40:58+08:00">2020-12-22</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index"><span itemprop="name">大数据</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Spark Streaming运行时由Driver和Executor相互协调完成。</p>
-<p>Driver端创建<strong>StreamingContent</strong>，其中包括了<strong>DStreamGraph</strong>和<strong>JobSchedule</strong>，它又包括了<strong>ReceiverTracker</strong>和<strong>JobGenerator</strong>），Driver主要负责生成调度job、与execuor进行交互、指导工作。</p>
-
+      
+    <div class="collection-year">
+      <span class="collection-header">2020</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-22T15:01:22+08:00"
+              content="2020-12-22">
+          12-22
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/22/Spark-ShuffleManager%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">Spark ShuffleManager的运行原理</span>
+          </a>
+      </div>
+
       
-  <div class="popular-posts-header">相关文章</div>
-  <ul class="popular-posts">
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/12/22/Spark-ShuffleManager的运行原理/" rel="bookmark">Spark ShuffleManager的运行原理</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/12/08/Spark SQL源码分析/" rel="bookmark">Spark SQL 源码分析</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/12/07/Spark SQL运行的基本原理/" rel="bookmark">Spark SQL运行的基本原理</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/12/05/Spark运行的基本原理/" rel="bookmark">Spark 运行的基本原理</a></div>
-    </li>
-    <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2020/12/04/Hive运行的基本原理/" rel="bookmark">Hive运行的基本原理</a></div>
-    </li>
-  </ul>
-
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"><i class="fa fa-tag"></i> 大数据</a>
-              <a href="/tags/Spark-Streaming/" rel="tag"><i class="fa fa-tag"></i> Spark Streaming</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2020/12/14/%E8%AE%B0%E4%B8%80%E6%AC%A1Mac%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C/" rel="prev" title="记一次Mac处理文件无法删除操作">
-                  <i class="fa fa-chevron-left"></i> 记一次Mac处理文件无法删除操作
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="next" title="Redis底层数据结构">
-                  Redis底层数据结构 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+    </header>
   </article>
-</div>
 
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-15T11:48:56+08:00"
+              content="2020-12-15">
+          12-15
+        </time>
+      </div>
 
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/15/Hive%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E5%8F%8A%E4%BC%98%E5%8C%96/" itemprop="url">
+            <span itemprop="name">Hive文件存储及优化</span>
+          </a>
+      </div>
 
+      
+    </header>
+  </article>
 
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-14T13:43:00+08:00"
+              content="2020-12-14">
+          12-14
+        </time>
+      </div>
 
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/14/Spark%20Streaming%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">Spark Streaming运行的基本原理</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-08T12:22:00+08:00"
+              content="2020-12-08">
+          12-08
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/08/Spark%20SQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" itemprop="url">
+            <span itemprop="name">Spark SQL 源码分析</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-07T12:22:00+08:00"
+              content="2020-12-07">
+          12-07
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/07/Spark%20SQL%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">Spark SQL运行的基本原理</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-05T12:22:00+08:00"
+              content="2020-12-05">
+          12-05
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/05/Spark%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">Spark 运行的基本原理</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-04T12:22:00+08:00"
+              content="2020-12-04">
+          12-04
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/04/Hive%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">Hive运行的基本原理</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-03T12:22:00+08:00"
+              content="2020-12-03">
+          12-03
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/03/MapReduce%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" itemprop="url">
+            <span itemprop="name">MapReduce 源码分析</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-03T12:22:00+08:00"
+              content="2020-12-03">
+          12-03
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/03/MapReduce%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">MapReduce运行的基本原理</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2020-12-02T12:22:00+08:00"
+              content="2020-12-02">
+          12-02
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/12/02/Yarn%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" itemprop="url">
+            <span itemprop="name">Yarn 运行的基本原理</span>
+          </a>
+      </div>
+
+      
+    </header>
+  </article>
+
+    </div>
+  </div>
+  
+  
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/page/2/">2</a><a class="extend next" rel="next" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 <script>
@@ -432,7 +533,7 @@
       quicklink.listen({
         timeout : 3000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'http://sevncz.xyz/2020/12/14/Spark%20Streaming%E8%BF%90%E8%A1%8C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://sevncz.xyz/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/',]
       });
       });
   </script>

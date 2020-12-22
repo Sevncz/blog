@@ -24,17 +24,19 @@
     var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 <meta name="description" content="努力赚钱">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sevncz&#39;s Blog">
-<meta property="og:url" content="http://sevncz.xyz/categories/server/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 主从数据同步原理">
+<meta property="og:url" content="http://sevncz.xyz/2020/12/22/Redis-%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Sevncz&#39;s Blog">
 <meta property="og:description" content="努力赚钱">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-22T09:11:53.000Z">
+<meta property="article:modified_time" content="2020-12-22T09:12:02.921Z">
 <meta property="article:author" content="sevncz">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://sevncz.xyz/categories/server/">
+<link rel="canonical" href="http://sevncz.xyz/2020/12/22/Redis-%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%8E%9F%E7%90%86/">
 
 
 <script class="page-configurations">
@@ -42,11 +44,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>分类: server | Sevncz's Blog</title>
+<title>Redis 主从数据同步原理 | Sevncz's Blog</title>
   
 
 
@@ -191,7 +193,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -204,7 +206,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -238,50 +240,88 @@
 </noscript>
 
 
-    <div class="main-inner category posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">server
-          <small>分类</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/22/Redis-%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1169.JPG">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis 主从数据同步原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+
+      <time title="创建时间：2020-12-22 17:11:53 / 修改时间：17:12:02" itemprop="dateCreated datePublished" datetime="2020-12-22T17:11:53+08:00">2020-12-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-14T10:34:43+08:00"
-              content="2020-12-14">
-          12-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/14/%E8%AE%B0%E4%B8%80%E6%AC%A1Mac%E5%A4%84%E7%90%86%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C/" itemprop="url">
-            <span itemprop="name">记一次Mac处理文件无法删除操作</span>
-          </a>
-      </div>
-
+    
+    
+    
       
-    </header>
+
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/22/Spark-ShuffleManager%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" rel="prev" title="Spark ShuffleManager的运行原理">
+                  <i class="fa fa-chevron-left"></i> Spark ShuffleManager的运行原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/12/22/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="next" title="Redis实现分布式锁">
+                  Redis实现分布式锁 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 
 <script>
@@ -350,7 +390,7 @@
       quicklink.listen({
         timeout : 3000,
         priority: true,
-        ignores : [uri => uri.includes('#'),uri => uri === 'http://sevncz.xyz/categories/server/',]
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://sevncz.xyz/2020/12/22/Redis-%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E5%8E%9F%E7%90%86/',]
       });
       });
   </script>
