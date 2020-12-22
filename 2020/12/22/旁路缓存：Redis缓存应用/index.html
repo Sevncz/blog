@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto+Slab:300,300italic,400,400italic,700,700italic|PT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="缓存的特征 在一个层次化的系统中，缓存一定是一个快速子系统，数据存在缓存中时，能避免每次从慢速子系统中存取数据； 缓存系统的容量大小总是小于后端慢速系统，我们不可能把所有数据都放在缓存系统中；  Redis 缓存处理请求的两种情况 缓存命中：Redis 中有相应的数据，就直接读取 Redis，性能非常快。 缓存缺失：Redis 中没有保存相应的数据，就从后端数据库中读取数据，性能就会变慢。而且，一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="旁路缓存：Redis缓存应用">
+<meta property="og:url" content="http://sevncz.xyz/2020/12/22/%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%EF%BC%9ARedis%E7%BC%93%E5%AD%98%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Sevncz&#39;s Blog">
+<meta property="og:description" content="缓存的特征 在一个层次化的系统中，缓存一定是一个快速子系统，数据存在缓存中时，能避免每次从慢速子系统中存取数据； 缓存系统的容量大小总是小于后端慢速系统，我们不可能把所有数据都放在缓存系统中；  Redis 缓存处理请求的两种情况 缓存命中：Redis 中有相应的数据，就直接读取 Redis，性能非常快。 缓存缺失：Redis 中没有保存相应的数据，就从后端数据库中读取数据，性能就会变慢。而且，一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-22T01:38:37.000Z">
+<meta property="article:modified_time" content="2020-12-22T03:12:27.116Z">
+<meta property="article:author" content="sevncz">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="缓存">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://sevncz.xyz/2020/12/22/%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%EF%BC%9ARedis%E7%BC%93%E5%AD%98%E5%BA%94%E7%94%A8/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>旁路缓存：Redis缓存应用 | Sevncz's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sevncz's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">1.</span> <span class="nav-text">缓存的特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%83%85%E5%86%B5"><span class="nav-number">2.</span> <span class="nav-text">Redis 缓存处理请求的两种情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">Redis 作为旁路缓存的使用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">缓存类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E7%BC%93%E5%AD%98"><span class="nav-number">4.1.</span> <span class="nav-text">只读缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E7%BC%93%E5%AD%98"><span class="nav-number">4.2.</span> <span class="nav-text">读写缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%AE%B9%E9%87%8F%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">缓存容量设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E7%BC%93%E5%AD%98%E7%9A%84%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5"><span class="nav-number">6.</span> <span class="nav-text">Redis 缓存的淘汰策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU%E7%AE%97%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">LRU算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E4%BD%BF%E7%94%A8%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.2.</span> <span class="nav-text">缓存淘汰策略使用的建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E8%A2%AB%E6%B7%98%E6%B1%B0%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">6.3.</span> <span class="nav-text">如何处理被淘汰的数据</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="sevncz"
+      src="/images/IMG_1169.JPG">
+  <p class="site-author-name" itemprop="name">sevncz</p>
+  <div class="site-description" itemprop="description">努力赚钱</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Sevncz" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Sevncz" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sevncz.xyz/2020/12/22/%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%EF%BC%9ARedis%E7%BC%93%E5%AD%98%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_1169.JPG">
+      <meta itemprop="name" content="sevncz">
+      <meta itemprop="description" content="努力赚钱">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevncz's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          旁路缓存：Redis缓存应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-22 09:38:37 / 修改时间：11:12:27" itemprop="dateCreated datePublished" datetime="2020-12-22T09:38:37+08:00">2020-12-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="缓存的特征"><a href="#缓存的特征" class="headerlink" title="缓存的特征"></a>缓存的特征</h2><ol>
+<li>在一个层次化的系统中，缓存一定是一个快速子系统，数据存在缓存中时，能避免每次从慢速子系统中存取数据；</li>
+<li>缓存系统的容量大小总是小于后端慢速系统，我们不可能把所有数据都放在缓存系统中；</li>
+</ol>
+<h2 id="Redis-缓存处理请求的两种情况"><a href="#Redis-缓存处理请求的两种情况" class="headerlink" title="Redis 缓存处理请求的两种情况"></a>Redis 缓存处理请求的两种情况</h2><ul>
+<li>缓存命中：Redis 中有相应的数据，就直接读取 Redis，性能非常快。</li>
+<li>缓存缺失：Redis 中没有保存相应的数据，就从后端数据库中读取数据，性能就会变慢。而且，一旦发生缓存缺失，为了让后续请求能从缓存中读取到数据，我们需要把缺失的数据写入Redis，这个过程叫做<strong>缓存更新</strong>，缓存更新操作会设计到保证缓存和数据库之间的数据一致性问题。</li>
+</ul>
+<h2 id="Redis-作为旁路缓存的使用操作"><a href="#Redis-作为旁路缓存的使用操作" class="headerlink" title="Redis 作为旁路缓存的使用操作"></a>Redis 作为旁路缓存的使用操作</h2><p>旁路缓存：Redis 不主动访问数据库加载数据到自己的内存中，而是在应用程序读取Redis缓存，如果不存在，就去查后端数据库，再将查询到的数据加载到Redis。</p>
+<p>在使用旁路缓存时，需要在应用程序中增加操作代码，增加了使用Redis缓存的额外工作量，但是，也正是因为Redis是旁路缓存，是一个独立的系统，我们可以单独对Redis缓存进行扩容或性能优化。而且，只要保持操作接口不变，我们在应用程序中增加的代码就不用再修改了。</p>
+<p>Redis 缓存的两种类型：</p>
+<ul>
+<li>只读缓存：能加速读请求</li>
+<li>读写缓存：同时加速读写请求，读写缓存又有两种数据写回策略，可以让我们根据业务需求，在保证性能和保证数据可靠性之间进行选择。</li>
+</ul>
+<h2 id="缓存类型"><a href="#缓存类型" class="headerlink" title="缓存类型"></a>缓存类型</h2><h3 id="只读缓存"><a href="#只读缓存" class="headerlink" title="只读缓存"></a>只读缓存</h3><p><strong>读请求</strong></p>
+<p>先调用 Redis 的 Get 接口，查询数据是否存在，如果发生缓存缺失，应用会把这些数据从数据库读出来，并写到缓存中。</p>
+<p><strong>写请求</strong></p>
+<p>会直接发往后端的数据库，在数据库中增删改。对于删改的数据来说，应用需要把这些缓存的数据删除，Redis 中就没有这些数据了。</p>
+<p>这里最新的数据在数据库中。</p>
+<h3 id="读写缓存"><a href="#读写缓存" class="headerlink" title="读写缓存"></a>读写缓存</h3><p>对于读写缓存来说，除了读请求会发送到缓存进行处理，写请求也会发送到缓存，在缓存中直接对数据进行增删改操作。由于Redis的高性能访问特性，数据的增删改操作可以在缓存中快速完成，处理结果也会快速返回给业务应用，提升业务响应速度。</p>
+<p>这里，最新的数据是在Reids中，一旦出现掉电或宕机，内存中的数据就会丢失。</p>
+<p>所以，根据业务应用对数据可靠性和缓存性能的不同要求，我们会有同步直写和异步写回两种策略。其中，同步直写策略优先保证数据可靠性，异步写回策略优先提供快速响应。</p>
+<p><strong>同步直写</strong></p>
+<p>写请求发给缓存的同时，也会发给后端数据库进行处理，等到缓存和数据库都处理完数据，才给客户端返回。</p>
+<p><strong>异步写回</strong></p>
+<p>写请求先在缓存处理，等这些增改的数据要被从缓存中淘汰出来时，缓存将他们写回后端数据库。</p>
+<h2 id="缓存容量设置"><a href="#缓存容量设置" class="headerlink" title="缓存容量设置"></a>缓存容量设置</h2><p>结合应用数据实际访问特征和成本开销来综合考虑。</p>
+<p>一般来说，缓存容量设置为总数据量的15%到30%，兼顾访问性能和内存空间开销。</p>
+<p>Redis可以通过以下命令设定缓存的大小：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG SET maxmemory 4gb</span><br></pre></td></tr></table></figure>
+
+<p>缓存写满是不可避免的，所以如何淘汰数据以及如何处理那些被淘汰的数据需要了解。</p>
+<h2 id="Redis-缓存的淘汰策略"><a href="#Redis-缓存的淘汰策略" class="headerlink" title="Redis 缓存的淘汰策略"></a>Redis 缓存的淘汰策略</h2><p>一共有8种策略，4.0以前6种，之后增加了2种，其中，只有一种noeviction不淘汰数据的策略，七种淘汰数据的策略。</p>
+<p>七种淘汰策略可以根据淘汰候选数据集的范围把它们分为两类：</p>
+<ul>
+<li>在设置了过期时间的数据中进行淘汰，包括：volatile-random、volatile-ttl、volatile-lru、volatile-lfu（4.0后增加） 这四种。</li>
+<li>在所有数据范围内进行淘汰，包括：allkeys-lru、allkeys-random、allkeys-lfu（4.0后增加）三种。</li>
+</ul>
+<p>默认情况下，Reids 在使用的内存空间操作maxmemory值时，并不会淘汰数据，也就是设定的 noeviction 策略。对应到Redis缓存，也就是指，一旦缓存被写满，写请求再来时，Redis 不再提供服务，而是直接返回错误。</p>
+<p>设置过期时间的数据，当过期时间快到期，或者达到了Maxmemory阈值，Redis会按照以下策略进行淘汰。</p>
+<ul>
+<li>volatile-ttl：根据过期时间的先后进行删除，越早过期的越先被删除。</li>
+<li>volatile-random：设置了过期时间的键值对中进行随机删除。</li>
+<li>volatile-lru：以LRU算法筛选</li>
+<li>volatile-lfu：以LFU算法筛选</li>
+</ul>
+<p>和以上策略类似，对于所有数据也有以下3类淘汰策略:</p>
+<ul>
+<li>allkeys-random</li>
+<li>allkeys-lru</li>
+<li>allkeys-lfu</li>
+</ul>
+<h3 id="LRU算法"><a href="#LRU算法" class="headerlink" title="LRU算法"></a>LRU算法</h3><p>全称 Least Recently Used，按最近最少使用的原则筛选数据。最不常用的数据会被筛选出来，而最近频繁使用的数据会留在缓存中。</p>
+<p>LRU 会把所有的数据组织成一个链表，链表的头和尾分别表示MRU端和LRU端，分别代表最近最常使用的数据和最近最不常用的数据。删除数据时从LRU端开始。</p>
+<p>每有一个数据被访问，该数据就会放入链表头，链表中其他数据则相应向后移一位。</p>
+<p>LRU在实际实现时，会创建一个额外的链表来管理所有缓存数据，带来了额外的空间开销。当有大量数据被访问时，就会带来很多链表移动操作，会很耗时，进而降低性能。</p>
+<p>在Redis中，LRU 算法被进行了优化，以减轻数据淘汰对缓存性能的影响。具体来说，Redis 默认会记录每个数据的最近一次访问的时间戳（由键值对数据结构 RedisObject 中的 lru 字段记录）。然后，Redis 在决定淘汰的数据时，第一次会随机选出 N 个数据，把他们作为一个候选集合。接下来，Redis 会比较这 N 个数据的 lru 字段，把 lru 字段值最小的数据从缓存中淘汰出去。（局部数据淘汰机制，所以 Redis 中可能存在长时间未删除的过期数据）</p>
+<p>可以配置参数 maxmemory-samples 来设置 N 的个数。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG SET maxmemory-samples 100</span><br></pre></td></tr></table></figure>
+
+<p>当需要再次淘汰数据时，Redis 需要挑选数据进入第一次淘汰时创建的候选集合。这里的挑选标准是：<strong>能进入候选集合的数据的 lru 字段值必须小于候选集合中最小的 lru 值。</strong> 当有新数据进入候选数据集后，如果候选数据集中的数据个数达到了 maxmemory-samples，Redis 就把候选数据集中 lru 字段最小的数据淘汰出去。</p>
+<p>这样 Redis 缓存不用为所有数据维护一个大链表，也不用在每次数据访问时都移动链表项，提升了缓存的性能。</p>
+<h3 id="缓存淘汰策略使用的建议"><a href="#缓存淘汰策略使用的建议" class="headerlink" title="缓存淘汰策略使用的建议"></a>缓存淘汰策略使用的建议</h3><ul>
+<li>优先使用 allkeys-lru 策略</li>
+<li>业务应用的数据访问频率相差不大，没有明显的冷热数据区分，建议使用 allkeys-random 策略</li>
+<li>如果业务中有置顶需求，比如置顶新闻、置顶视频，那么可以使用 volatile-lru 策略，同时不给这些置顶数据设置过期时间。</li>
+</ul>
+<h3 id="如何处理被淘汰的数据"><a href="#如何处理被淘汰的数据" class="headerlink" title="如何处理被淘汰的数据"></a>如何处理被淘汰的数据</h3><p>一般来说，一个数据被淘汰策略选定之后，如果这个数据是干净数据，那么直接删除；如果这个数据是脏数据，那么我们需要把它写回数据库。</p>
+<p>如何判断数据是干净还是脏？</p>
+<p>干净数据和脏数据的区别就在于，和最初从后端数据库里读取时的值相比，有没有被修改过。修改过的值需要写回数据库，保证数据的一致性。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/16/Redis持久化机制/" rel="bookmark">Redis持久化机制</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/12/15/Redis底层数据结构/" rel="bookmark">Redis底层数据结构</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"><i class="fa fa-tag"></i> Redis</a>
+              <a href="/tags/%E7%BC%93%E5%AD%98/" rel="tag"><i class="fa fa-tag"></i> 缓存</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/16/Redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6/" rel="prev" title="Redis持久化机制">
+                  <i class="fa fa-chevron-left"></i> Redis持久化机制
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sevncz@xyz</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/quicklink@2.0.0/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink.listen({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'http://sevncz.xyz/2020/12/22/%E6%97%81%E8%B7%AF%E7%BC%93%E5%AD%98%EF%BC%9ARedis%E7%BC%93%E5%AD%98%E5%BA%94%E7%94%A8/',]
+      });
+      });
+  </script>
+
+</body>
+</html>
