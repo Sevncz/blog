@@ -655,7 +655,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-22 22:40:51" itemprop="dateModified" datetime="2020-12-22T22:40:51+08:00">2020-12-22</time>
+        <time title="修改时间：2021-01-19 13:32:07" itemprop="dateModified" datetime="2021-01-19T13:32:07+08:00">2021-01-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -682,10 +682,10 @@
 <li><p>RDD是Resilient Distributed Dataset(弹性分布式数据集)的简称。RDD的弹性体现在计算方面，当Spark进行计算时，某一阶段出现数据丢失或者故障，可以通过RDD的血缘关系就行修复。     </p>
 </li>
 <li><ul>
-<li>\1. 内存的弹性：内存与磁盘的自动切换    </li>
-<li>\2. 容错的弹性：数据丢失可以自动恢复</li>
-<li>\3. 计算的弹性：计算出错重试机制</li>
-<li>\4. 分片的弹性：根据需要重新分片 </li>
+<li>内存的弹性：内存与磁盘的自动切换    </li>
+<li>容错的弹性：数据丢失可以自动恢复</li>
+<li>计算的弹性：计算出错重试机制</li>
+<li>分片的弹性：根据需要重新分片 </li>
 </ul>
 </li>
 <li><p>RDD是不可变(immutable)的，一旦创建就不可改变。RDDA–&gt;RDDB，RDDA 经过转换操作变成RDDB，这两个RDD具有血缘关系，但是是两个不同的RDD，体现了RDD一旦创建就不可变的性质。</p>
@@ -754,7 +754,7 @@
 </li>
 </ul>
 <h2 id="DAG、Stage、Shuffle"><a href="#DAG、Stage、Shuffle" class="headerlink" title="DAG、Stage、Shuffle"></a>DAG、Stage、Shuffle</h2><p>有向无环图，DAGScheduler负责生成DAG，然后将程序分发到分布式计算集群，按计算阶段的先后关系调度执行</p>
-<p>并不是RDD上的每一个转换函数都会生成一个计算计算，通过观察DAG图，RDD之间的转换连接线呈现多对多交叉连接的时候，就会产生新的阶段，一个RDD代表一个数据集，每一个RDD都包含多个分片。</p>
+<p>并不是RDD上的每一个转换函数都会生成一个计算，通过观察DAG图，RDD之间的转换连接线呈现多对多交叉连接的时候，就会产生新的阶段，一个RDD代表一个数据集，每一个RDD都包含多个分片。</p>
 <p>一个数据集中的多个数据分片需要进行分区传输，写入到另一个数据集的不同分片中，这种数据分区交叉传输的操作，和MapReduce类似，是shuffle过程，Spark也需要通过shuffle将数据进行重新组合，相同的Key的数据放在一起，进行聚合、关联等操作，因而每次shuffle都产生新的计算阶段。这也是为什么计算阶段会有依赖关系，它需要的数据来源于前面一个或多个计算阶段产生的数据，必须等待前面的阶段执行完毕才能进行shuffle，并得到数据</p>
 <p>所以，计算阶段的划分以及是shuffle，而不是转换函数的类型，有的函数有时候有shuffle，有时候没有。</p>
 <p>RDD 已经进行过分区，分区数目和分区Key不变，就不需要再进行shuffle，这种不需要进行shuffle的依赖，被称作窄依赖；相反的，需要进行shuffle的依赖，被称作宽依赖。</p>
@@ -1062,6 +1062,24 @@
   </span>
   <span class="author" itemprop="copyrightHolder">sevncz@xyz</span>
 </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
@@ -1081,6 +1099,7 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
