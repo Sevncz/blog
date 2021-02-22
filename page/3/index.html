@@ -736,7 +736,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-19 13:32:07" itemprop="dateModified" datetime="2021-01-19T13:32:07+08:00">2021-01-19</time>
+        <time title="修改时间：2021-02-19 17:30:29" itemprop="dateModified" datetime="2021-02-19T17:30:29+08:00">2021-02-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -781,45 +781,23 @@
 </ul>
 <p>源码解析</p>
 <ul>
-<li>A list of partitions</li>
+<li><p>A list of partitions</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Implemented by subclasses to return the set of partitions in this RDD. This method will only</span></span><br><span class="line"><span class="comment"> * be called once, so it is safe to implement a time-consuming computation in it.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The partitions in this array must satisfy the following property:</span></span><br><span class="line"><span class="comment"> *  rdd.partitions.zipWithIndex.forall &#123; case (partition, index) =&gt; partition.index == index &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">def</span> <span class="title">getPartitions</span></span>: <span class="type">Array</span>[<span class="type">Partition</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>compute函数的入参必然是partition，因为对RDD做计算相当于对每个partition做计算</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * :: DeveloperApi ::</span></span><br><span class="line"><span class="comment"> * Implemented by subclasses to compute a given partition.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@DeveloperApi</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute</span></span>(split: <span class="type">Partition</span>, context: <span class="type">TaskContext</span>): <span class="type">Iterator</span>[<span class="type">T</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>RDD之间有依赖关系</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Implemented by subclasses to return how this RDD depends on parent RDDs. This method will only</span></span><br><span class="line"><span class="comment"> * be called once, so it is safe to implement a time-consuming computation in it.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">def</span> <span class="title">getDependencies</span></span>: <span class="type">Seq</span>[<span class="type">Dependency</span>[_]] = deps</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Optionally overridden by subclasses to specify placement preferences.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">def</span> <span class="title">getPreferredLocations</span></span>(split: <span class="type">Partition</span>): <span class="type">Seq</span>[<span class="type">String</span>] = <span class="type">Nil</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Optionally overridden by subclasses to specify how they are partitioned. */</span></span><br><span class="line"><span class="meta">@transient</span> <span class="keyword">val</span> partitioner: <span class="type">Option</span>[<span class="type">Partitioner</span>] = <span class="type">None</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
-<p>/**</p>
-<p> * Implemented by subclasses to return the set of partitions in this RDD. This method will only</p>
-<p> * be called once, so it is safe to implement a time-consuming computation in it.</p>
-<p> *</p>
-<p> * The partitions in this array must satisfy the following property:</p>
-<p> *  <code>rdd.partitions.zipWithIndex.forall &#123; case (partition, index) =&gt; partition.index == index &#125;</code></p>
-<p> */</p>
-<p>protected def getPartitions: Array[Partition]</p>
-<ul>
-<li>compute函数的入参必然是partition，因为对RDD做计算相当于对每个partition做计算</li>
-</ul>
-<p>/**</p>
-<p> * :: DeveloperApi ::</p>
-<p> * Implemented by subclasses to compute a given partition.</p>
-<p> */</p>
-<p>@DeveloperApi</p>
-<p>def compute(split: Partition, context: TaskContext): Iterator[T]</p>
-<ul>
-<li>RDD之间有依赖关系</li>
-</ul>
-<p>/**</p>
-<p> * Implemented by subclasses to return how this RDD depends on parent RDDs. This method will only</p>
-<p> * be called once, so it is safe to implement a time-consuming computation in it.</p>
-<p> */</p>
-<p>protected def getDependencies: Seq[Dependency[_]] = deps</p>
-<ul>
-<li>Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)</li>
-</ul>
-<p>/**</p>
-<p> * Optionally overridden by subclasses to specify placement preferences.</p>
-<p> */</p>
-<p>protected def getPreferredLocations(split: Partition): Seq[String] = Nil</p>
-<ul>
-<li>Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)</li>
-</ul>
-<p>/** Optionally overridden by subclasses to specify how they are partitioned. */</p>
-<p>@transient val partitioner: Option[Partitioner] = None</p>
 <h2 id="RDD操作"><a href="#RDD操作" class="headerlink" title="RDD操作"></a>RDD操作</h2><ul>
 <li><p>Transformations：接受RDD并返回RDD</p>
 </li>

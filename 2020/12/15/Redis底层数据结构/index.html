@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"sevncz.xyz","root":"/","images":"/images","scheme":"Pisces","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="Redis 底层数据结构一共6种  SDS Linked List Dict Skip List 整数集合 压缩列表  SDS 简单动态字符串数据结构 len 已使用字节 free 未使用字节 buf 字节数组  对比C字符串，SDS的优点 获取字符串长度为 O(1) 复杂度；通过len即可获取。 杜绝缓冲区溢出 减少修改字符串带来的内存重分配次数  ​     针对以上两点，Redis为SDS设">
+<meta name="description" content="Redis 底层数据结构一共6种  SDS Linked List Dict Skip List 整数集合 压缩列表  SDS 简单动态字符串数据结构 len 已使用字节 free 未使用字节 buf 字节数组  对比C字符串，SDS的优点 获取字符串长度为 O(1) 复杂度；通过len即可获取。  杜绝缓冲区溢出  减少修改字符串带来的内存重分配次数  二进制安全；SDS对存放在buf数组的数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis底层数据结构">
 <meta property="og:url" content="http://sevncz.xyz/2020/12/15/Redis%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Sevncz&#39;s Blog">
-<meta property="og:description" content="Redis 底层数据结构一共6种  SDS Linked List Dict Skip List 整数集合 压缩列表  SDS 简单动态字符串数据结构 len 已使用字节 free 未使用字节 buf 字节数组  对比C字符串，SDS的优点 获取字符串长度为 O(1) 复杂度；通过len即可获取。 杜绝缓冲区溢出 减少修改字符串带来的内存重分配次数  ​     针对以上两点，Redis为SDS设">
+<meta property="og:description" content="Redis 底层数据结构一共6种  SDS Linked List Dict Skip List 整数集合 压缩列表  SDS 简单动态字符串数据结构 len 已使用字节 free 未使用字节 buf 字节数组  对比C字符串，SDS的优点 获取字符串长度为 O(1) 复杂度；通过len即可获取。  杜绝缓冲区溢出  减少修改字符串带来的内存重分配次数  二进制安全；SDS对存放在buf数组的数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-15T02:01:35.000Z">
-<meta property="article:modified_time" content="2021-02-01T16:56:42.142Z">
+<meta property="article:modified_time" content="2021-02-22T08:55:29.583Z">
 <meta property="article:author" content="sevncz">
 <meta property="article:tag" content="Redis">
 <meta property="article:tag" content="数据结构">
@@ -180,7 +180,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDS-%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">SDS 简单动态字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94C%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8CSDS%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">对比C字符串，SDS的优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%AB%AF%E9%93%BE%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">双端链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#listNode-%E9%93%BE%E8%A1%A8%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">listNode 链表节点数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-%E9%93%BE%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">list 链表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">特性总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E5%85%B8"><span class="nav-number">3.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">哈希表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">哈希表节点数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.</span> <span class="nav-text">字典数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rehash%E8%BF%87%E7%A8%8B"><span class="nav-number">3.4.</span> <span class="nav-text">rehash过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">跳表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">4.1.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.2.</span> <span class="nav-text">跳表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">跳表节点数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%82"><span class="nav-number">4.3.1.</span> <span class="nav-text">层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%BF%9B%E6%8C%87%E9%92%88"><span class="nav-number">4.3.2.</span> <span class="nav-text">前进指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%A8%E5%BA%A6"><span class="nav-number">4.3.3.</span> <span class="nav-text">跨度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E9%80%80%E6%8C%87%E9%92%88"><span class="nav-number">4.3.4.</span> <span class="nav-text">后退指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%80%BC%E5%92%8C%E6%88%90%E5%91%98"><span class="nav-number">4.3.5.</span> <span class="nav-text">分值和成员</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E9%9B%86%E5%90%88"><span class="nav-number">5.</span> <span class="nav-text">整数集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1"><span class="nav-number">5.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7"><span class="nav-number">5.2.</span> <span class="nav-text">升级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">5.2.1.</span> <span class="nav-text">升级的好处</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%8D%E7%BA%A7"><span class="nav-number">5.3.</span> <span class="nav-text">降级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">压缩列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.</span> <span class="nav-text">压缩列表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%E8%8A%82%E7%82%B9%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.</span> <span class="nav-text">压缩列表节点的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E9%94%81%E6%9B%B4%E6%96%B0"><span class="nav-number">6.3.</span> <span class="nav-text">连锁更新</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDS-%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.</span> <span class="nav-text">SDS 简单动态字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94C%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8CSDS%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">对比C字符串，SDS的优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%AB%AF%E9%93%BE%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">双端链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#listNode-%E9%93%BE%E8%A1%A8%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">listNode 链表节点数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-%E9%93%BE%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">list 链表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">特性总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E5%85%B8"><span class="nav-number">3.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">哈希表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">哈希表节点数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.3.</span> <span class="nav-text">字典数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rehash"><span class="nav-number">3.4.</span> <span class="nav-text">rehash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">跳表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">4.1.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.2.</span> <span class="nav-text">跳表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.3.</span> <span class="nav-text">跳表节点数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%82"><span class="nav-number">4.3.1.</span> <span class="nav-text">层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%BF%9B%E6%8C%87%E9%92%88"><span class="nav-number">4.3.2.</span> <span class="nav-text">前进指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%A8%E5%BA%A6"><span class="nav-number">4.3.3.</span> <span class="nav-text">跨度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E9%80%80%E6%8C%87%E9%92%88"><span class="nav-number">4.3.4.</span> <span class="nav-text">后退指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%80%BC%E5%92%8C%E6%88%90%E5%91%98"><span class="nav-number">4.3.5.</span> <span class="nav-text">分值和成员</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E9%9B%86%E5%90%88"><span class="nav-number">5.</span> <span class="nav-text">整数集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1"><span class="nav-number">5.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7"><span class="nav-number">5.2.</span> <span class="nav-text">升级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">5.2.1.</span> <span class="nav-text">升级的好处</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%8D%E7%BA%A7"><span class="nav-number">5.3.</span> <span class="nav-text">降级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">压缩列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.1.</span> <span class="nav-text">压缩列表数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8%E8%8A%82%E7%82%B9%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.2.</span> <span class="nav-text">压缩列表节点的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E9%94%81%E6%9B%B4%E6%96%B0"><span class="nav-number">6.3.</span> <span class="nav-text">连锁更新</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -285,7 +285,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-02 00:56:42" itemprop="dateModified" datetime="2021-02-02T00:56:42+08:00">2021-02-02</time>
+        <time title="修改时间：2021-02-22 16:55:29" itemprop="dateModified" datetime="2021-02-22T16:55:29+08:00">2021-02-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -329,21 +329,20 @@
 <li>buf 字节数组</li>
 </ul>
 <h3 id="对比C字符串，SDS的优点"><a href="#对比C字符串，SDS的优点" class="headerlink" title="对比C字符串，SDS的优点"></a>对比C字符串，SDS的优点</h3><ul>
-<li>获取字符串长度为 O(1) 复杂度；通过len即可获取。</li>
-<li>杜绝缓冲区溢出</li>
-<li>减少修改字符串带来的内存重分配次数</li>
-</ul>
-<p>​     针对以上两点，Redis为SDS设计了两种内存分配策略。</p>
-<ol>
-<li><ol>
-<li>空间预分配；对SDS修改后的长度小于1MB，那么分配free = len，如果长度大于等于1MB，free = 1MB</li>
-<li>惰性空间释放；用于优化SDS的字符串缩短操作，当缩短SDS保存的字符串时，并补立即回收多出来的字节，而是放到free记录下来，等待使用</li>
-</ol>
+<li><p>获取字符串长度为 O(1) 复杂度；通过len即可获取。</p>
 </li>
-</ol>
-<ul>
-<li>二进制安全；SDS对存放在buf数组的数据，不会做任何限制、过滤、或者假设，数据在写入时是什么样，它被读取时就是    什么样。</li>
+<li><p>杜绝缓冲区溢出</p>
+</li>
+<li><p>减少修改字符串带来的内存重分配次数</p>
+</li>
+<li><p>二进制安全；SDS对存放在buf数组的数据，不会做任何限制、过滤、或者假设，数据在写入时是什么样，它被读取时就是    什么样。</p>
+</li>
 </ul>
+<blockquote>
+<p>针对缓冲区溢出和内存重分配的问题，Redis为SDS设计了两种内存分配策略。</p>
+<pre><code>      1. 空间预分配；对SDS修改后的长度小于1MB，那么分配free = len，如果长度大于等于1MB，free = 1MB
+      2. 惰性空间释放；用于优化SDS的字符串缩短操作，当缩短SDS保存的字符串时，并补立即回收多出来的字节，而是放到free记录下来，等待使用</code></pre>
+</blockquote>
 <h2 id="双端链表"><a href="#双端链表" class="headerlink" title="双端链表"></a>双端链表</h2><h3 id="listNode-链表节点数据结构"><a href="#listNode-链表节点数据结构" class="headerlink" title="listNode 链表节点数据结构"></a>listNode 链表节点数据结构</h3><ul>
 <li>prev 前置节点</li>
 <li>next 后置节点</li>
@@ -382,8 +381,25 @@
 <li>ht[2] 哈希表 包含两个哈希表，ht[0]是字典使用的，ht[1]是rehash时使用</li>
 <li>rehashidx rehash 索引，当没有进行rehash时，=-1</li>
 </ul>
-<h3 id="rehash过程"><a href="#rehash过程" class="headerlink" title="rehash过程"></a>rehash过程</h3><p><strong>rehash时机</strong></p>
+<h3 id="rehash"><a href="#rehash" class="headerlink" title="rehash"></a>rehash</h3><p>随着操作的不断执行，哈希表需要维护负载因子在一个合理的范围，因此需要对哈希表的大小进行相应的扩展或者收缩。</p>
+<p><strong>步骤</strong></p>
+<p>简单来说就是由ht[0]向ht[1]迁移，释放ht[0]，再将ht[1]设置为ht[0]，同时重新为ht[1]创建一个空白哈希表，为下一次rehash做准备。</p>
+<p><strong>rehash时机</strong></p>
+<p>当以下条件中的任意一个被满足时，程序会自动开始对哈希表执行扩展操作：</p>
+<p>（1）服务器目前没有在执行BGSAVE命令或者BGREWRITEAOF命令，并且哈希表的负载因子大于等于1；</p>
+<p>（2）服务器目前正在执行BGSAVE命令或则BGREWRITEAOF命令，并且哈希表的负载因子大于等于5；</p>
+<p>负载因子的计算公式：</p>
+<p>load_factor = ht[0].used / ht[0].size</p>
+<p>另外，</p>
+<p>当负载因子小于0.1时，程序开始自动对哈希表执行收缩操作。</p>
 <p><strong>渐进式rehash</strong></p>
+<p>在上述rehash的过程中，迁移并不是一次性、集中式完成的，而是分多次、渐进式地完成的。</p>
+<ol>
+<li>为 ht[1] 分配空间，让字典同时持有 ht[0] 和 ht[1] 两个哈希表；</li>
+<li>在字典中维持一个索引计数器变量 rehashidx，并将它的值设置为0，表示 rehash 工作正式开始；</li>
+<li>在 rehash 进行期间，每次对字典执行天假、删除、查找或者更新操作时，程序出了执行指定的操作以外，还会顺带将 ht[0] 哈希表在 rehashidx 索引上的所有键值对 rehash 到 ht[1]，当 rehash 工作完成之后，程序将rehashidx 属性的值+1；</li>
+<li>随着字典操作的不断执行，最终在某个时间点上，ht[0] 的所有键值对都会被 rehash 至 ht[1]，这时程序将 rehashidx 属性的值设置为 -1，表示 rehash 操作已完成。</li>
+</ol>
 <h2 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h2><p>它通过在每个节点中维持多个指向其他节点的指针，从而达到快速访问节点的目的。平均查找O(logN)</p>
 <h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><ol>
 <li>实现有序集合键</li>
